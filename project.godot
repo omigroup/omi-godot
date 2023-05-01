@@ -14,6 +14,10 @@ config/name="OMI extensions for Godot"
 config/features=PackedStringArray("4.1")
 config/icon="res://icon.svg"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/omi_extensions/plugin.cfg")
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
