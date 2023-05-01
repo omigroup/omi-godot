@@ -6,14 +6,15 @@ This repository is used by the [Open Metaverse Interoperability Group](https://o
 
 Extensions implemented in this repository:
 
-| Extension name      | Import | Export | Godot version | Link                                                                                                                   |
-| ------------------- | ------ | ------ | ------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| **OMI_seat**        | Yes    | Yes    | 4.0+          | [OMI_seat extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_seat)               |
-| **OMI_spawn_point** | Yes    | No     | 4.0+          | [OMI_spawn_point extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_spawn_point) |
+| Extension name        | Import | Export | Godot version | Link                                                                                                                       |
+| --------------------- | ------ | ------ | ------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **OMI_seat**          | Yes    | Yes    | 4.0+          | [OMI_seat extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_seat)                   |
+| **OMI_spawn_point**   | Yes    | No     | 4.0+          | [OMI_spawn_point extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_spawn_point)     |
+| **OMI_physics_joint** | Yes    | Yes    | 4.1+          | [OMI_physics_joint extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_physics_joint) |
 
 Extensions implemented upstream in Godot Engine:
 
 | Extension name       | Import | Export | Godot version | Link                                                                                                                     |
 | -------------------- | ------ | ------ | ------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| **OMI_collider**     | Yes    | Yes    | 4.1+          | [OMI_collider extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_collider)         |
-| **OMI_physics_body** | Yes    | Yes    | 4.1+          | [OMI_physics_body extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_physics_body) |
+| **OMI_collider**     | Yes    | Yes    | 4.1+ or 3.6+  | [OMI_collider extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_collider)         |
+| **OMI_physics_body** | Yes    | Yes    | 4.1+ or 3.6+  | [OMI_physics_body extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_physics_body) |
