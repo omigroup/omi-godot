@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cipctumec3e7h"]
+
+[ext_resource type="PackedScene" uid="uid://cbcl76ieoawm0" path="res://examples/omi_physics_joint/gltf/simple_joint.gltf" id="1_efl7c"]
+[ext_resource type="PackedScene" uid="uid://jtuy1pve36dv" path="res://examples/test_environment.tscn" id="1_kughc"]
+
+[node name="SimpleJointTest" type="Node3D"]
+
+[node name="TestEnvironment" parent="." instance=ExtResource("1_kughc")]
+
+[node name="simple_joint" parent="." instance=ExtResource("1_efl7c")]

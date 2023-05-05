@@ -1,0 +1,86 @@
+[gd_scene load_steps=6 format=3 uid="uid://qb7twdaj8cwf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wt0kw"]
+size = Vector3(2, 0.2, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qqqod"]
+size = Vector3(2, 0.2, 0.2)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2n7rj"]
+radius = 0.25
+
+[sub_resource type="SphereMesh" id="SphereMesh_kjwoo"]
+radius = 0.25
+height = 0.5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5jnur"]
+radius = 0.05
+height = 1.0
+
+[node name="PendulumBalls" type="Node3D"]
+
+[node name="TopBody" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 2.08165e-12)
+
+[node name="TopBodyShape" type="CollisionShape3D" parent="TopBody"]
+shape = SubResource("BoxShape3D_wt0kw")
+
+[node name="TopBodyMesh" type="MeshInstance3D" parent="TopBody/TopBodyShape"]
+mesh = SubResource("BoxMesh_qqqod")
+
+[node name="HingeJoint1" type="HingeJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.9, 2.08165e-12)
+node_a = NodePath("../TopBody")
+node_b = NodePath("../Ball1")
+
+[node name="Ball1" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -0.25, 2.08165e-12)
+
+[node name="BallShape1" type="CollisionShape3D" parent="Ball1"]
+shape = SubResource("SphereShape3D_2n7rj")
+
+[node name="BallMesh1" type="MeshInstance3D" parent="Ball1/BallShape1"]
+mesh = SubResource("SphereMesh_kjwoo")
+
+[node name="BallStringMesh1" type="MeshInstance3D" parent="Ball1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.7, 2.08165e-12)
+mesh = SubResource("CapsuleMesh_5jnur")
+
+[node name="HingeJoint2" type="HingeJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 0.9, 2.08165e-12)
+node_a = NodePath("../TopBody")
+node_b = NodePath("../Ball2")
+
+[node name="Ball2" type="RigidBody3D" parent="."]
+transform = Transform3D(0.707107, 0.707107, 3.48787e-16, -0.707107, 0.707107, -3.48787e-16, -4.93259e-16, 1.60554e-24, 1, -1.26317, 0.0868272, 2.08165e-12)
+
+[node name="BallShape2" type="CollisionShape3D" parent="Ball2"]
+shape = SubResource("SphereShape3D_2n7rj")
+
+[node name="BallMesh2" type="MeshInstance3D" parent="Ball2/BallShape2"]
+mesh = SubResource("SphereMesh_kjwoo")
+
+[node name="BallStringMesh2" type="MeshInstance3D" parent="Ball2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.7, 2.08165e-12)
+mesh = SubResource("CapsuleMesh_5jnur")
+
+[node name="HingeJoint3" type="HingeJoint3D" parent="."]
+transform = Transform3D(0.866025, -0.5, 3.48787e-16, 0.5, 0.866025, -3.48787e-16, -1.27665e-16, 4.76452e-16, 1, 0.45, 0.9, 2.08165e-12)
+node_a = NodePath("../TopBody")
+node_b = NodePath("../Ball3")
+
+[node name="Ball3" type="RigidBody3D" parent="."]
+transform = Transform3D(-0.965926, -0.258819, 8.25239e-16, 0.258819, -0.965926, -4.76452e-16, 9.20434e-16, -2.46629e-16, 1, 0.747642, 2.01081, 2.08193e-12)
+
+[node name="BallShape2" type="CollisionShape3D" parent="Ball3"]
+shape = SubResource("SphereShape3D_2n7rj")
+
+[node name="BallMesh2" type="MeshInstance3D" parent="Ball3/BallShape2"]
+mesh = SubResource("SphereMesh_kjwoo")
+
+[node name="BallStringMesh2" type="MeshInstance3D" parent="Ball3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.7, 2.08165e-12)
+mesh = SubResource("CapsuleMesh_5jnur")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 1.5)

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://llt5ltyaojn8"]
+
+[ext_resource type="PackedScene" uid="uid://jtuy1pve36dv" path="res://examples/test_environment.tscn" id="1_4lldl"]
+[ext_resource type="PackedScene" uid="uid://bsru8jcku4pbm" path="res://examples/omi_physics_joint/gltf/slider_ball.gltf" id="1_vbss6"]
+
+[node name="SliderBallTest" type="Node3D"]
+
+[node name="TestEnvironment" parent="." instance=ExtResource("1_4lldl")]
+
+[node name="slider_ball" parent="." instance=ExtResource("1_vbss6")]

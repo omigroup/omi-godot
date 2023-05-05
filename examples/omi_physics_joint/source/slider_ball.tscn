@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://djjat4lcyycv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wt0kw"]
+size = Vector3(2, 0.1, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qqqod"]
+size = Vector3(2, 0.1, 0.1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2n7rj"]
+radius = 0.25
+
+[sub_resource type="SphereMesh" id="SphereMesh_kjwoo"]
+radius = 0.25
+height = 0.5
+
+[node name="PendulumBalls" type="Node3D"]
+
+[node name="SliderLine" type="StaticBody3D" parent="."]
+
+[node name="SliderLineShape" type="CollisionShape3D" parent="SliderLine"]
+shape = SubResource("BoxShape3D_wt0kw")
+
+[node name="SliderLineMesh" type="MeshInstance3D" parent="SliderLine/SliderLineShape"]
+mesh = SubResource("BoxMesh_qqqod")
+
+[node name="SliderJoint" type="SliderJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 2.08165e-12, 2.08165e-12)
+node_a = NodePath("../Ball")
+node_b = NodePath("../SliderLine")
+linear_limit/upper_distance = 0.25
+linear_limit/lower_distance = -1.75
+linear_limit/damping = 0.5
+
+[node name="Ball" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 2.08165e-12, 2.08165e-12)
+linear_velocity = Vector3(1, 2.08165e-12, 2.08165e-12)
+angular_velocity = Vector3(0.0174533, 0.0174533, 0.0174533)
+
+[node name="BallShape" type="CollisionShape3D" parent="Ball"]
+shape = SubResource("SphereShape3D_2n7rj")
+
+[node name="BallMesh" type="MeshInstance3D" parent="Ball/BallShape"]
+mesh = SubResource("SphereMesh_kjwoo")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 1.5)
