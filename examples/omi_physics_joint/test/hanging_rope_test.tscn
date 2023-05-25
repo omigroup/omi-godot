@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://523r5p5ifi78"]
+
+[ext_resource type="PackedScene" uid="uid://jtuy1pve36dv" path="res://examples/test_environment.tscn" id="1_actd1"]
+[ext_resource type="PackedScene" uid="uid://ci6itm2taodm3" path="res://examples/omi_physics_joint/gltf/hanging_rope.gltf" id="2_leltm"]
+
+[node name="HangingRopeTest" type="Node3D"]
+
+[node name="TestEnvironment" parent="." instance=ExtResource("1_actd1")]
+
+[node name="hanging_rope" parent="." instance=ExtResource("2_leltm")]

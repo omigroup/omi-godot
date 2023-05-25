@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmr8dv5lv6jox"]
+
+[ext_resource type="PackedScene" uid="uid://jtuy1pve36dv" path="res://examples/test_environment.tscn" id="1_0dddo"]
+[ext_resource type="PackedScene" uid="uid://b510bj645xkt3" path="res://examples/omi_physics_joint/gltf/rope_railing.gltf" id="1_gib38"]
+
+[node name="RopeRailingTest" type="Node3D"]
+
+[node name="TestEnvironment" parent="." instance=ExtResource("1_0dddo")]
+
+[node name="rope_railing" parent="." instance=ExtResource("1_gib38")]

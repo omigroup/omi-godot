@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://du2qdjcrr05v2"]
+
+[ext_resource type="PackedScene" uid="uid://jtuy1pve36dv" path="res://examples/test_environment.tscn" id="1_esshi"]
+[ext_resource type="PackedScene" uid="uid://bw0c7334lfcil" path="res://examples/omi_physics_joint/gltf/swing_and_slide.gltf" id="1_hrmgk"]
+
+[node name="SwingAndSlideTest" type="Node3D"]
+
+[node name="TestEnvironment" parent="." instance=ExtResource("1_esshi")]
+
+[node name="swing_and_slide" parent="." instance=ExtResource("1_hrmgk")]

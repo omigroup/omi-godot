@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b04aep2udu4kk"]
+
+[ext_resource type="PackedScene" uid="uid://jtuy1pve36dv" path="res://examples/test_environment.tscn" id="1_bqy0h"]
+[ext_resource type="PackedScene" uid="uid://bfxsfq0gxuqqd" path="res://examples/omi_physics_joint/gltf/pendulum_balls.gltf" id="1_pqjs7"]
+
+[node name="PendulumBallsTest" type="Node3D"]
+
+[node name="TestEnvironment" parent="." instance=ExtResource("1_bqy0h")]
+
+[node name="pendulum_balls" parent="." instance=ExtResource("1_pqjs7")]

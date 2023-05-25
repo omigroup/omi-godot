@@ -1,0 +1,120 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctnut5kgrymkh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5bdxa"]
+size = Vector3(0.15, 1.1, 0.15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_l2buq"]
+size = Vector3(0.15, 1.1, 0.15)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8yjlq"]
+radius = 0.05
+height = 0.5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_eehis"]
+radius = 0.05
+height = 0.5
+
+[node name="RopeRailing" type="Node3D"]
+
+[node name="PoleLeft" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 0.55, 2.08165e-12)
+
+[node name="PoleColliderLeft" type="CollisionShape3D" parent="PoleLeft"]
+shape = SubResource("BoxShape3D_5bdxa")
+
+[node name="PoleMeshLeft" type="MeshInstance3D" parent="PoleLeft/PoleColliderLeft"]
+mesh = SubResource("BoxMesh_l2buq")
+skeleton = NodePath("../..")
+
+[node name="PinJoint1" type="PinJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03, 0.98, 2.08165e-12)
+node_a = NodePath("../PoleLeft")
+node_b = NodePath("../RopeSegmentLeft")
+
+[node name="RopeSegmentLeft" type="RigidBody3D" parent="."]
+transform = Transform3D(0.866025, 0.5, 3.48787e-16, -0.5, 0.866025, -3.48787e-16, -4.76452e-16, 1.27665e-16, 1, -0.86, 0.88, 2.08165e-12)
+
+[node name="RopeColliderLeft" type="CollisionShape3D" parent="RopeSegmentLeft"]
+transform = Transform3D(-4.37114e-08, -1, 3.48787e-16, 1, -4.37114e-08, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_8yjlq")
+
+[node name="RopeMeshLeft" type="MeshInstance3D" parent="RopeSegmentLeft/RopeColliderLeft"]
+mesh = SubResource("CapsuleMesh_eehis")
+
+[node name="PinJoint2" type="PinJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.66, 0.76, 2.08165e-12)
+node_a = NodePath("../RopeSegmentLeft")
+node_b = NodePath("../RopeSegmentLeftMiddle")
+
+[node name="RopeSegmentLeftMiddle" type="RigidBody3D" parent="."]
+transform = Transform3D(0.939693, 0.34202, 3.48787e-16, -0.34202, 0.939693, -3.48787e-16, -4.47045e-16, 2.0846e-16, 1, -0.45, 0.68, 2.08165e-12)
+
+[node name="RopeColliderLeftMiddle" type="CollisionShape3D" parent="RopeSegmentLeftMiddle"]
+transform = Transform3D(-4.37114e-08, -1, 3.48787e-16, 1, -4.37114e-08, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_8yjlq")
+
+[node name="RopeMeshLeftMiddle" type="MeshInstance3D" parent="RopeSegmentLeftMiddle/RopeColliderLeftMiddle"]
+mesh = SubResource("CapsuleMesh_eehis")
+
+[node name="PinJoint3" type="PinJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23, 0.6, 2.08165e-12)
+node_a = NodePath("../RopeSegmentLeftMiddle")
+node_b = NodePath("../RopeSegmentMiddle")
+
+[node name="RopeSegmentMiddle" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.6, 2.08165e-12)
+
+[node name="RopeColliderMiddle" type="CollisionShape3D" parent="RopeSegmentMiddle"]
+transform = Transform3D(-4.37114e-08, -1, 3.48787e-16, 1, -4.37114e-08, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_8yjlq")
+
+[node name="RopeMeshMiddle" type="MeshInstance3D" parent="RopeSegmentMiddle/RopeColliderMiddle"]
+mesh = SubResource("CapsuleMesh_eehis")
+
+[node name="PinJoint4" type="PinJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23, 0.6, 2.08165e-12)
+node_a = NodePath("../RopeSegmentMiddle")
+node_b = NodePath("../RopeSegmentRightMiddle")
+
+[node name="RopeSegmentRightMiddle" type="RigidBody3D" parent="."]
+transform = Transform3D(0.939693, -0.34202, 3.48787e-16, 0.34202, 0.939693, -3.48787e-16, -2.0846e-16, 4.47045e-16, 1, 0.45, 0.68, 2.08165e-12)
+
+[node name="RopeColliderRightMiddle" type="CollisionShape3D" parent="RopeSegmentRightMiddle"]
+transform = Transform3D(-4.37114e-08, -1, 3.48787e-16, 1, -4.37114e-08, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_8yjlq")
+
+[node name="RopeMeshRightMiddle" type="MeshInstance3D" parent="RopeSegmentRightMiddle/RopeColliderRightMiddle"]
+mesh = SubResource("CapsuleMesh_eehis")
+
+[node name="PinJoint5" type="PinJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.66, 0.76, 2.08165e-12)
+node_a = NodePath("../RopeSegmentRightMiddle")
+node_b = NodePath("../RopeSegmentRight")
+
+[node name="RopeSegmentRight" type="RigidBody3D" parent="."]
+transform = Transform3D(0.866025, -0.5, 3.48787e-16, 0.5, 0.866025, -3.48787e-16, -1.27665e-16, 4.76452e-16, 1, 0.86, 0.88, 2.08165e-12)
+
+[node name="RopeColliderRight" type="CollisionShape3D" parent="RopeSegmentRight"]
+transform = Transform3D(-4.37114e-08, -1, 3.48787e-16, 1, -4.37114e-08, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_8yjlq")
+
+[node name="RopeMeshRight" type="MeshInstance3D" parent="RopeSegmentRight/RopeColliderRight"]
+mesh = SubResource("CapsuleMesh_eehis")
+
+[node name="PinJoint6" type="PinJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03, 0.98, 2.08165e-12)
+node_a = NodePath("../RopeSegmentRight")
+node_b = NodePath("../PoleRight")
+
+[node name="PoleRight" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0.55, 2.08165e-12)
+
+[node name="PoleColliderRight" type="CollisionShape3D" parent="PoleRight"]
+shape = SubResource("BoxShape3D_5bdxa")
+
+[node name="PoleMeshRight" type="MeshInstance3D" parent="PoleRight/PoleColliderRight"]
+mesh = SubResource("BoxMesh_l2buq")
+skeleton = NodePath("../..")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.6, 1.5)

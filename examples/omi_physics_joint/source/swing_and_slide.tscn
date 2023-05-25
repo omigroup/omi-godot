@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://dbc53talxhou"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wt0kw"]
+size = Vector3(2, 0.1, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qqqod"]
+size = Vector3(2, 0.1, 0.1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2n7rj"]
+radius = 0.25
+
+[sub_resource type="SphereMesh" id="SphereMesh_kjwoo"]
+radius = 0.25
+height = 0.5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5jnur"]
+radius = 0.05
+height = 1.0
+
+[node name="SwingAndSlide" type="Node3D"]
+
+[node name="TopBody" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 2.08165e-12)
+
+[node name="TopBodyShape" type="CollisionShape3D" parent="TopBody"]
+shape = SubResource("BoxShape3D_wt0kw")
+
+[node name="TopBodyMesh" type="MeshInstance3D" parent="TopBody/TopBodyShape"]
+mesh = SubResource("BoxMesh_qqqod")
+
+[node name="CustomJoint" type="Generic6DOFJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 1, 2.08165e-12)
+node_a = NodePath("../TopBody")
+node_b = NodePath("../Ball")
+linear_limit_x/upper_distance = 1.75
+linear_limit_x/lower_distance = -0.25
+angular_limit_z/enabled = false
+
+[node name="Ball" type="RigidBody3D" parent="."]
+transform = Transform3D(0.707107, 0.707107, 3.48787e-16, -0.707107, 0.707107, -3.48787e-16, -4.93259e-16, 1.60554e-24, 1, -1.6, 0.15, 2.08165e-12)
+
+[node name="BallShape" type="CollisionShape3D" parent="Ball"]
+shape = SubResource("SphereShape3D_2n7rj")
+
+[node name="BallMesh" type="MeshInstance3D" parent="Ball/BallShape"]
+mesh = SubResource("SphereMesh_kjwoo")
+
+[node name="BallStringMesh" type="MeshInstance3D" parent="Ball"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.7, 2.08165e-12)
+mesh = SubResource("CapsuleMesh_5jnur")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 1.5)
