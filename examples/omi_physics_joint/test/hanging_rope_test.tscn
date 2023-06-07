@@ -7,4 +7,6 @@
 
 [node name="TestEnvironment" parent="." instance=ExtResource("1_actd1")]
 
-[node name="hanging_rope" parent="." instance=ExtResource("2_leltm")]
+[node name="HangingRope" parent="." instance=ExtResource("2_leltm")]
+
+[editable path="HangingRope"]
