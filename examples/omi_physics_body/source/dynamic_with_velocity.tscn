@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://df4tvsoecmbno"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ghi6v"]
+
+[node name="DynamicWithVelocity" type="RigidBody3D"]
+linear_velocity = Vector3(1, 2, 3)
+angular_velocity = Vector3(0.0698132, 0.0872665, 0.10472)
+
+[node name="SphereShape" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_ghi6v")

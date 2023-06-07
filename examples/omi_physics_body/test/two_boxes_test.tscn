@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c27ulxafysf50"]
+
+[ext_resource type="PackedScene" uid="uid://jtuy1pve36dv" path="res://examples/test_environment.tscn" id="1_ij25r"]
+[ext_resource type="PackedScene" uid="uid://bwge2lbkxrt1r" path="res://examples/omi_physics_body/gltf/two_boxes.gltf" id="2_xk8ku"]
+
+[node name="TwoBoxesTest" type="Node3D"]
+
+[node name="TestEnvironment" parent="." instance=ExtResource("1_ij25r")]
+
+[node name="Camera3D" type="Camera3D" parent="TestEnvironment"]
+transform = Transform3D(1, -4.68079e-16, 3.27752e-16, 3.27752e-16, 0.939693, 0.34202, -4.68079e-16, -0.34202, 0.939693, 2.08165e-12, 1, 3)
+
+[node name="two_boxes" parent="." instance=ExtResource("2_xk8ku")]
+
+[editable path="two_boxes"]
