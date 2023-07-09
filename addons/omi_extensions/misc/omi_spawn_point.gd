@@ -9,6 +9,10 @@ func _import_preflight(_state: GLTFState, extensions: PackedStringArray) -> Erro
 	return ERR_SKIP
 
 
+func _get_supported_extensions() -> PackedStringArray:
+	return PackedStringArray(["OMI_spawn_point"])
+
+
 func _import_node(_state: GLTFState, _gltf_node: GLTFNode, json: Dictionary, node: Node) -> Error:
 	if not json.has("extensions"):
 		return OK
