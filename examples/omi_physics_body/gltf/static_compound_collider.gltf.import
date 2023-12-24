@@ -3,18 +3,18 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://s8axa6fdgkc1"
-path="res://.godot/imported/weld_joint.gltf-80ce40f4b1090d0d56bdbe65bd5cbcf2.scn"
+uid="uid://h0212o0d4n14"
+path="res://.godot/imported/static_compound_collider.gltf-c162960baaf09d9b5e2c18a15de8530d.scn"
 
 [deps]
 
-source_file="res://examples/omi_physics_joint/gltf/weld_joint.gltf"
-dest_files=["res://.godot/imported/weld_joint.gltf-80ce40f4b1090d0d56bdbe65bd5cbcf2.scn"]
+source_file="res://examples/omi_physics_body/gltf/static_compound_collider.gltf"
+dest_files=["res://.godot/imported/static_compound_collider.gltf-c162960baaf09d9b5e2c18a15de8530d.scn"]
 
 [params]
 
-nodes/root_type="Node3D"
-nodes/root_name="Scene Root"
+nodes/root_type=""
+nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 meshes/ensure_tangents=true

@@ -3,18 +3,18 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://s8axa6fdgkc1"
-path="res://.godot/imported/weld_joint.gltf-80ce40f4b1090d0d56bdbe65bd5cbcf2.scn"
+uid="uid://bwge2lbkxrt1r"
+path="res://.godot/imported/two_boxes.gltf-d0996b8ef2c81417dced04500a8970d7.scn"
 
 [deps]
 
-source_file="res://examples/omi_physics_joint/gltf/weld_joint.gltf"
-dest_files=["res://.godot/imported/weld_joint.gltf-80ce40f4b1090d0d56bdbe65bd5cbcf2.scn"]
+source_file="res://examples/omi_physics_body/gltf/two_boxes.gltf"
+dest_files=["res://.godot/imported/two_boxes.gltf-d0996b8ef2c81417dced04500a8970d7.scn"]
 
 [params]
 
-nodes/root_type="Node3D"
-nodes/root_name="Scene Root"
+nodes/root_type=""
+nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 meshes/ensure_tangents=true
