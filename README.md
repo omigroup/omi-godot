@@ -14,7 +14,8 @@ Extensions implemented in this repository:
 
 Extensions implemented upstream in Godot Engine:
 
-| Extension name       | Import | Export | Godot version | Link                                                                                                                     |
-| -------------------- | ------ | ------ | ------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| **OMI_collider**     | Yes    | Yes    | 4.1+ or 3.6+  | [OMI_collider extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_collider)         |
-| **OMI_physics_body** | Yes    | Yes    | 4.1+ or 3.6+  | [OMI_physics_body extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_physics_body) |
+| Extension name        | Import | Export | Godot version | Link                                                                                                                       |
+| --------------------- | ------ | ------ | ------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **OMI_collider**      | Yes    | Yes    | 4.1+ or 3.6+  | [OMI_collider extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/Archived/OMI_collider)  |
+| **OMI_physics_body**  | Yes    | Yes    | 4.1+ or 3.6+  | [OMI_physics_body extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_physics_body)   |
+| **OMI_physics_shape** | Yes    | Yes    | 4.3+          | [OMI_physics_shape extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_physics_shape) |
