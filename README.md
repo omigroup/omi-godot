@@ -6,11 +6,11 @@ This repository is used by the [Open Metaverse Interoperability Group](https://o
 
 Extensions implemented in this repository:
 
-| Extension name        | Import | Export | Godot version | Link                                                                                                                       |
-| --------------------- | ------ | ------ | ------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| **OMI_seat**          | Yes    | Yes    | 4.0+          | [OMI_seat extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_seat)                   |
-| **OMI_spawn_point**   | Yes    | No     | 4.0+          | [OMI_spawn_point extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_spawn_point)     |
-| **OMI_physics_joint** | Yes    | Yes    | 4.1+          | [OMI_physics_joint extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_physics_joint) |
+| Extension name          | Import | Export | Godot version | Link                                                                                                                           |
+| ----------------------- | ------ | ------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| **OMI_physics_joint**   | Yes    | Yes    | 4.1+          | [OMI_physics_joint extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_physics_joint)     |
+| **OMI_seat**            | Yes    | Yes    | 4.0+          | [OMI_seat extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_seat)                       |
+| **OMI_spawn_point**     | Yes    | No     | 4.0+          | [OMI_spawn_point extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_spawn_point)         |
 
 Extensions implemented upstream in Godot Engine:
 
