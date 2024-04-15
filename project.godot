@@ -16,7 +16,7 @@ config/icon="res://icon.svg"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/omi_extensions/plugin.cfg")
+enabled=PackedStringArray("res://addons/gltf_khr_xmp_copyright/plugin.cfg", "res://addons/omi_extensions/plugin.cfg")
 
 [rendering]
 
