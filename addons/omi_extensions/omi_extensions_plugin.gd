@@ -9,5 +9,7 @@ func _enter_tree() -> void:
 	GLTFDocument.register_gltf_document_extension(ext)
 	ext = GLTFDocumentExtensionOMISpawnPoint.new()
 	GLTFDocument.register_gltf_document_extension(ext)
+	ext = GLTFDocumentExtensionOMIPhysicsGravity.new()
+	GLTFDocument.register_gltf_document_extension(ext, true)
 	ext = GLTFDocumentExtensionOMIPhysicsJoint.new()
 	GLTFDocument.register_gltf_document_extension(ext)
