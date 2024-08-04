@@ -6,11 +6,15 @@ This repository is used by the [Open Metaverse Interoperability Group](https://o
 
 Extensions implemented in this repository:
 
-| Extension name          | Import | Export | Godot version | Link                                                                                                                           |
-| ----------------------- | ------ | ------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| **OMI_physics_joint**   | Yes    | Yes    | 4.1+          | [OMI_physics_joint extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_physics_joint)     |
-| **OMI_seat**            | Yes    | Yes    | 4.0+          | [OMI_seat extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_seat)                       |
-| **OMI_spawn_point**     | Yes    | No     | 4.0+          | [OMI_spawn_point extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_spawn_point)         |
+| Extension name                 | Import | Export | Godot version | Link                                                                                                                                         |
+| ------------------------------ | ------ | ------ | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| **OMI_physics_joint**          | Yes    | Yes    | 4.1+          | [OMI_physics_joint extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_physics_joint)                   |
+| **OMI_seat**                   | Yes    | Yes    | 4.0+          | [OMI_seat extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_seat)                                     |
+| **OMI_spawn_point**            | Yes    | No     | 4.0+          | [OMI_spawn_point extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_spawn_point)                       |
+| **OMI_vehicle_body**           | Yes    | Yes    | 4.3+          | [OMI_vehicle_body extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_vehicle_body)                     |
+| **OMI_vehicle_hover_thruster** | Yes    | Yes    | 4.3+          | [OMI_vehicle_hover_thruster extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_vehicle_hover_thruster) |
+| **OMI_vehicle_thruster**       | Yes    | Yes    | 4.3+          | [OMI_vehicle_thruster extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_vehicle_thruster)             |
+| **OMI_vehicle_wheel**          | Yes    | Yes    | 4.3+          | [OMI_vehicle_wheel extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_vehicle_wheel)                   |
 
 Extensions implemented upstream in Godot Engine:
 

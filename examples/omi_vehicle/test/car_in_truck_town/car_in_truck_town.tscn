@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://mvug8a7m8825"]
+
+[ext_resource type="PackedScene" uid="uid://jtuy1pve36dv" path="res://examples/test_environment.tscn" id="1_fva6i"]
+[ext_resource type="PackedScene" uid="uid://csucj4oj3q3qt" path="res://examples/omi_vehicle/gltf/truck_town/town_model.gltf" id="2_o3ijf"]
+[ext_resource type="PackedScene" uid="uid://cbbund73l3qmj" path="res://examples/omi_vehicle/test/car_in_truck_town/walking_player/walking_player.tscn" id="3_qj1pa"]
+[ext_resource type="PackedScene" uid="uid://db0a284ld0msa" path="res://examples/omi_vehicle/gltf/simple_car.gltf" id="3_rw0mv"]
+[ext_resource type="PackedScene" uid="uid://cghtq66o4561u" path="res://examples/omi_vehicle/gltf/hovercraft/hovercraft.gltf" id="5_s0ajm"]
+
+[node name="CarInTruckTown" type="Node3D"]
+
+[node name="TestEnvironment" parent="." instance=ExtResource("1_fva6i")]
+
+[node name="TownModel" parent="." instance=ExtResource("2_o3ijf")]
+
+[node name="WalkingPlayer" parent="." instance=ExtResource("3_qj1pa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.7918, 11.9084, 15.6272)
+
+[node name="SimpleCar" parent="." instance=ExtResource("3_rw0mv")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 37, 9, 14)
+
+[node name="HovercraftBody" parent="." instance=ExtResource("5_s0ajm")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 20, 10, 60)

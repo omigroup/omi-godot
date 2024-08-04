@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://qakadfgfwfp8"]
+
+[ext_resource type="PackedScene" uid="uid://bmbkstugq3cyh" path="res://examples/test_space_environment.tscn" id="1_mg78u"]
+[ext_resource type="PackedScene" uid="uid://cwnqk815f83vx" path="res://examples/omi_vehicle/gltf/low_poly_space_station/low_poly_space_station.gltf" id="2_6q7xs"]
+[ext_resource type="PackedScene" uid="uid://bm08gpxby4g2w" path="res://examples/omi_vehicle/gltf/rocket_ship/rocket_ship.gltf" id="4_4cav3"]
+[ext_resource type="PackedScene" uid="uid://b3pg7oc65ty0b" path="res://examples/omi_vehicle/test/single/rocket_ship_station/rocket_ship_thruster_particles.tscn" id="4_cp6cm"]
+
+[node name="RocketShipAndStation" type="Node3D"]
+
+[node name="TestSpaceEnvironment" parent="." instance=ExtResource("1_mg78u")]
+
+[node name="SpaceStationBody" parent="." instance=ExtResource("2_6q7xs")]
+
+[node name="RocketShipBody" parent="." instance=ExtResource("4_4cav3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30)
+
+[node name="RocketShipThrusterParticles" parent="RocketShipBody/RocketShipThruster" index="0" instance=ExtResource("4_cp6cm")]
+amount_ratio = 0.0
+
+[node name="RocketShipPilotSeat3D" parent="RocketShipBody" index="7"]
+use_local_controls = true
+
+[node name="Camera3D" type="Camera3D" parent="RocketShipBody"]
+transform = Transform3D(-1, 4.37114e-08, -7.57103e-08, 0, 0.866025, 0.5, 8.74228e-08, 0.5, -0.866025, 0, 4, -5)
+
+[editable path="RocketShipBody"]

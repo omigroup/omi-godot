@@ -1,0 +1,180 @@
+{
+    "asset": {
+        "generator": "Khronos glTF Blender I/O v4.1.62",
+        "version": "2.0"
+    },
+    "extensionsUsed": [
+        "GODOT_single_root",
+        "KHR_xmp_json_ld",
+        "OMI_physics_body",
+        "OMI_physics_shape"
+    ],
+    "extensions": {
+        "KHR_xmp_json_ld": {
+            "packets": [
+                {
+                    "@context": { "dc": "http://purl.org/dc/elements/1.1/" },
+                    "@id": "",
+                    "dc:creator": { "@list": ["Šimon Ustal", "aaronfranke"] },
+                    "dc:description": "Low-Poly Space Station - 3December by Šimon Ustal with OMI_physics added by aaronfranke.",
+                    "dc:format": "model/gltf+json",
+                    "dc:rights": "CC-BY 4.0 Attribution",
+                    "dc:source": "https://sketchfab.com/3d-models/low-poly-space-station-3december-df0259b2555d41fabed95c2fdcf23daa",
+                    "dc:subject": { "@set": ["Space", "Space Station"] },
+                    "dc:title": "Low-Poly Space Station - 3December",
+                    "dc:type": { "@set": ["Spacecraft"] }
+                }
+            ]
+        },
+        "OMI_physics_shape": {
+            "shapes": [
+                {
+                    "type": "trimesh",
+                    "trimesh": { "mesh": 0 }
+                }
+            ]
+        }
+    },
+    "scene": 0,
+    "scenes": [
+        {
+            "name": "Scene",
+            "nodes": [0]
+        }
+    ],
+    "nodes": [
+        {
+            "children": [1, 2],
+            "name": "SpaceStationBody",
+			"extensions": {
+				"OMI_physics_body": {
+					"motion": {
+						"type": "static"
+					}
+				}
+			}
+        },
+        {
+            "mesh": 0,
+            "name": "SpaceStationMesh"
+        },
+        {
+            "name": "SpaceStationTrimeshShape",
+			"extensions": {
+				"OMI_physics_body": {
+					"collider": {
+						"shape": 0
+					}
+				}
+			}
+        }
+    ],
+    "materials": [
+        {
+            "doubleSided": true,
+            "name": "SpaceStationMaterial",
+            "pbrMetallicRoughness": {
+                "baseColorTexture": {
+                    "index": 0
+                },
+                "metallicFactor": 0,
+                "roughnessFactor": 0.5
+            }
+        }
+    ],
+    "meshes": [
+        {
+            "name": "SpaceStationMeshData",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": 0,
+                        "NORMAL": 1,
+                        "TEXCOORD_0": 2
+                    },
+                    "indices": 3,
+                    "material": 0
+                }
+            ]
+        }
+    ],
+    "textures": [
+        {
+            "sampler": 0,
+            "source": 0
+        }
+    ],
+    "images": [
+        {
+            "mimeType": "image/png",
+            "name": "low_poly_space_station_tex",
+            "uri": "low_poly_space_station_tex.png"
+        }
+    ],
+    "accessors": [
+        {
+            "bufferView": 0,
+            "componentType": 5126,
+            "count": 14589,
+            "max": [25.112323760986328, 8.236722946166992, 9.480366706848145],
+            "min": [-25.112323760986328, -8.420032501220703, -9.480371475219727],
+            "type": "VEC3"
+        },
+        {
+            "bufferView": 1,
+            "componentType": 5126,
+            "count": 14589,
+            "type": "VEC3"
+        },
+        {
+            "bufferView": 2,
+            "componentType": 5126,
+            "count": 14589,
+            "type": "VEC2"
+        },
+        {
+            "bufferView": 3,
+            "componentType": 5123,
+            "count": 27450,
+            "type": "SCALAR"
+        }
+    ],
+    "bufferViews": [
+        {
+            "buffer": 0,
+            "byteLength": 175068,
+            "byteOffset": 0,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 175068,
+            "byteOffset": 175068,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 116712,
+            "byteOffset": 350136,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 54900,
+            "byteOffset": 466848,
+            "target": 34963
+        }
+    ],
+    "samplers": [
+        {
+            "magFilter": 9729,
+            "minFilter": 9987
+        }
+    ],
+    "buffers": [
+        {
+            "byteLength": 521748,
+            "uri": "low_poly_space_station.bin"
+        }
+    ]
+}

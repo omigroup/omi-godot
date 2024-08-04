@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cd3rfwpnfxd3h"]
+
+[ext_resource type="PackedScene" uid="uid://db0a284ld0msa" path="res://examples/omi_vehicle/gltf/simple_car.gltf" id="1_pnq74"]
+
+[node name="SimpleCarTest" type="Node3D"]
+
+[node name="simple_car" parent="." instance=ExtResource("1_pnq74")]
+
+[editable path="simple_car"]

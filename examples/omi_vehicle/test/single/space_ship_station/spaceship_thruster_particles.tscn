@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhaocqu71w46d"]
+
+[sub_resource type="Curve" id="Curve_816ct"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_e5d31"]
+curve = SubResource("Curve_816ct")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yrxw8"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 0.05
+emission_ring_inner_radius = 0.0
+direction = Vector3(0, 0, -1)
+spread = 2.0
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_e5d31")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_caxr0"]
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_t4js8"]
+material = SubResource("StandardMaterial3D_caxr0")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="SpaceshipThrusterParticles" type="GPUParticles3D"]
+amount = 32
+lifetime = 0.1
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_yrxw8")
+draw_pass_1 = SubResource("BoxMesh_t4js8")
