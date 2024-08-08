@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cki1lq1s1vy8a"
-path="res://.godot/imported/static_with_trigger.gltf-667972f389c6f7fb86ac0baf389ef2e4.scn"
+uid="uid://bktisttcq888v"
+path="res://.godot/imported/recliner_chair_with_trigger.gltf-cf3aa85ea6d2a35d6b49fc91ee3e86d7.scn"
 
 [deps]
 
-source_file="res://examples/omi_physics_body/gltf/static_with_trigger.gltf"
-dest_files=["res://.godot/imported/static_with_trigger.gltf-667972f389c6f7fb86ac0baf389ef2e4.scn"]
+source_file="res://examples/omi_seat/gltf/recliner_chair_with_trigger.gltf"
+dest_files=["res://.godot/imported/recliner_chair_with_trigger.gltf-cf3aa85ea6d2a35d6b49fc91ee3e86d7.scn"]
 
 [params]
 

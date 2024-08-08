@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmbkstugq3cyh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6ujne"]
+sky_top_color = Color(0.0117647, 0.0117647, 0.0117647, 1)
+sky_horizon_color = Color(0.0117647, 0.0117647, 0.0117647, 1)
+ground_bottom_color = Color(0.0117647, 0.0117647, 0.0117647, 1)
+ground_horizon_color = Color(0.0117647, 0.0117647, 0.0117647, 1)
+sun_angle_max = 2.0
+sun_curve = 1.0
+
+[sub_resource type="Sky" id="Sky_3ftm5"]
+sky_material = SubResource("ProceduralSkyMaterial_6ujne")
+
+[sub_resource type="Environment" id="Environment_88n3p"]
+background_mode = 2
+sky = SubResource("Sky_3ftm5")
+tonemap_mode = 2
+
+[node name="TestSpaceEnvironment" type="WorldEnvironment"]
+environment = SubResource("Environment_88n3p")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866024, -0.433016, 0.25, 0, 0.5, 0.866026, -0.5, 0.75, -0.43301, 0, 0, 0)
