@@ -217,7 +217,6 @@
         {
             "emissiveFactor": [0, 0, 0],
             "emissiveTexture": { "index": 3 },
-            "extensions": {},
             "name": "BoomBox_Mat",
             "normalTexture": { "index": 2, "scale": 1 },
             "occlusionTexture": { "index": 1 },

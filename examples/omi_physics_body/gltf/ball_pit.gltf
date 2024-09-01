@@ -505,7 +505,7 @@
     "buffers": [{ "byteLength": 789024, "uri": "ball_pit0.bin" }],
     "cameras": [
         {
-            "perspective": { "yfov": 1.30899691581726, "zfar": 4000, "znear": 0.0500000007450581 },
+            "perspective": { "yfov": 1.30899691581726, "zfar": 4000, "znear": 0.05 },
             "type": "perspective"
         }
     ],

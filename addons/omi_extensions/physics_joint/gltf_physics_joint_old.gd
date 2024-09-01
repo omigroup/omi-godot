@@ -1,5 +1,5 @@
 @tool
-class_name GLTFPhysicsJoint
+class_name GLTFPhysicsJointOld
 extends Resource
 
 
@@ -14,8 +14,8 @@ var angular_y: GLTFPhysicsJointConstraint = null
 var angular_z: GLTFPhysicsJointConstraint = null
 
 
-static func from_node(joint_node: Joint3D) -> GLTFPhysicsJoint:
-	var ret := GLTFPhysicsJoint.new()
+static func from_node(joint_node: Joint3D) -> GLTFPhysicsJointOld:
+	var ret := GLTFPhysicsJointOld.new()
 	if not joint_node.node_a.is_empty():
 		ret.node_a = joint_node.get_node(joint_node.node_a)
 	if not joint_node.node_b.is_empty():
@@ -88,7 +88,7 @@ static func from_node(joint_node: Joint3D) -> GLTFPhysicsJoint:
 		ret.angular_z = fixed_angular_constraint
 	elif joint_node is ConeTwistJoint3D:
 		# It doesn't seem possible to fully represent ConeTwistJoint3D, so use an approximation.
-		push_warning("GLTF Physics Joint: Converting a ConeTwistJoint3D which cannot be properly represented as a GLTF joint, so it will only be approximated.")
+		push_warning("glTF Physics Joint: Converting a ConeTwistJoint3D which cannot be properly represented as a glTF joint, so it will only be approximated.")
 		var linear_constraint := GLTFPhysicsJointConstraint.new()
 		linear_constraint.linear_axes = [0, 1, 2]
 		ret.linear_x = linear_constraint
@@ -285,7 +285,7 @@ func _create_generic_joint_with_constraints() -> Generic6DOFJoint3D:
 	return ret
 
 
-static func _convert_generic_joint_constraints(joint_node: Generic6DOFJoint3D, gltf_joint: GLTFPhysicsJoint) -> void:
+static func _convert_generic_joint_constraints(joint_node: Generic6DOFJoint3D, gltf_joint: GLTFPhysicsJointOld) -> void:
 	if joint_node.get_flag_x(Generic6DOFJoint3D.FLAG_ENABLE_LINEAR_LIMIT):
 		var constraint := GLTFPhysicsJointConstraint.new()
 		constraint.lower_limit = joint_node.get_param_x(Generic6DOFJoint3D.PARAM_LINEAR_LOWER_LIMIT)
