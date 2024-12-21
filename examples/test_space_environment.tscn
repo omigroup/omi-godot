@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bmbkstugq3cyh"]
 
-[ext_resource type="Script" path="res://addons/omi_extensions/physics_gravity/global_gravity_setter.gd" id="1_5eiqc"]
+[ext_resource type="Script" uid="uid://ps5nycpefm3h" path="res://addons/omi_extensions/physics_gravity/global_gravity_setter.gd" id="1_5eiqc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6ujne"]
 sky_top_color = Color(0.0117647, 0.0117647, 0.0117647, 1)
