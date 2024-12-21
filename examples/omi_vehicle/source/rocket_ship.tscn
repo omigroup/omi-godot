@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=4 uid="uid://c60hy356x1vfn"]
 
-[ext_resource type="Script" path="res://addons/omi_extensions/vehicle/nodes/piloted_vehicle_body_3d.gd" id="1_yd6sw"]
+[ext_resource type="Script" uid="uid://vr67n3dj53we" path="res://addons/omi_extensions/vehicle/nodes/piloted_vehicle_body_3d.gd" id="1_yd6sw"]
 [ext_resource type="Texture2D" uid="uid://msnktntaysgn" path="res://examples/omi_vehicle/source/rocket_ship_RocketShip_BaseColor.png" id="2_ep1pm"]
-[ext_resource type="Script" path="res://addons/omi_extensions/vehicle/nodes/vehicle_thruster_3d.gd" id="3_ijsqw"]
-[ext_resource type="Script" path="res://addons/omi_extensions/vehicle/nodes/pilot_seat_3d.gd" id="4_h40gw"]
+[ext_resource type="Script" uid="uid://c1vsgtq6nx77k" path="res://addons/omi_extensions/vehicle/nodes/vehicle_thruster_3d.gd" id="3_ijsqw"]
+[ext_resource type="Script" uid="uid://bheenmqo6ebnf" path="res://addons/omi_extensions/vehicle/nodes/pilot_seat_3d.gd" id="4_h40gw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cqufy"]
 resource_name = "RocketShipMaterial"

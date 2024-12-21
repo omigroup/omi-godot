@@ -13,6 +13,7 @@ emission_ring_axis = Vector3(0, 0, 1)
 emission_ring_height = 0.0
 emission_ring_radius = 0.05
 emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
 direction = Vector3(0, 0, -1)
 spread = 2.0
 initial_velocity_min = 20.0
