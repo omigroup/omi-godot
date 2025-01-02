@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://3hcpp8n7ekcs"]
+
+[ext_resource type="PackedScene" uid="uid://bli0exbvummt3" path="res://examples/omi_materials_blend/gltf/omi_mat_blend.gltf" id="1_3v27v"]
+
+[node name="OMIMaterialsBlendTest" type="Node3D"]
+
+[node name="OMIMaterialsBlend" parent="." instance=ExtResource("1_3v27v")]
