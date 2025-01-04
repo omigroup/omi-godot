@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://buvfofna4tm36"]
+
+[ext_resource type="Script" path="res://examples/omi_vehicle/test/space_station/astronaut_player/astronaut_player.gd" id="1_femwh"]
+[ext_resource type="Script" path="res://examples/omi_vehicle/test/space_station/astronaut_player/seat_interact_ray.gd" id="2_uwxwa"]
+[ext_resource type="Script" path="res://examples/omi_vehicle/test/space_station/astronaut_player/camera.gd" id="3_kaumt"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wjd78"]
+radius = 0.375
+height = 1.75
+
+[node name="AstronautPlayer" type="RigidBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+mass = 100.0
+can_sleep = false
+script = ExtResource("1_femwh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_wjd78")
+
+[node name="SeatInteractRay" type="RayCast3D" parent="CollisionShape3D" node_paths=PackedStringArray("player_body")]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 0, 2)
+collide_with_areas = true
+collide_with_bodies = false
+script = ExtResource("2_uwxwa")
+player_body = NodePath("../..")
+
+[node name="CameraHolder" type="Node3D" parent="CollisionShape3D/SeatInteractRay"]
+script = ExtResource("3_kaumt")
+
+[node name="Camera3D" type="Camera3D" parent="CollisionShape3D/SeatInteractRay/CameraHolder"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+fov = 90.0

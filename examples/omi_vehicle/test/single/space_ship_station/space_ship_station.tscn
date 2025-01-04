@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhrhcxyti6yvr"]
+
+[ext_resource type="PackedScene" uid="uid://cwnqk815f83vx" path="res://examples/omi_vehicle/gltf/low_poly_space_station/low_poly_space_station.gltf" id="1_73vo8"]
+[ext_resource type="PackedScene" uid="uid://bmbkstugq3cyh" path="res://examples/test_space_environment.tscn" id="1_aucrh"]
+[ext_resource type="PackedScene" uid="uid://csy3u0tn8hups" path="res://examples/omi_vehicle/gltf/simple_spaceship/simple_spaceship.gltf" id="2_x1xt6"]
+[ext_resource type="PackedScene" uid="uid://bhaocqu71w46d" path="res://examples/omi_vehicle/test/single/space_ship_station/spaceship_thruster_particles.tscn" id="3_p8ohq"]
+
+[node name="SpaceShipAndStation" type="Node3D"]
+
+[node name="TestSpaceEnvironment" parent="." instance=ExtResource("1_aucrh")]
+
+[node name="SpaceStationBody" parent="." instance=ExtResource("1_73vo8")]
+
+[node name="SimpleSpaceshipBody" parent="." instance=ExtResource("2_x1xt6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
+can_sleep = false
+
+[node name="SpaceshipThrusterParticles" parent="SimpleSpaceshipBody/SimpleSpaceshipBottomThruster" index="0" instance=ExtResource("3_p8ohq")]
+amount_ratio = 0.0
+
+[node name="SpaceshipThrusterParticles" parent="SimpleSpaceshipBody/SimpleSpaceshipMainThrusterLeft" index="0" instance=ExtResource("3_p8ohq")]
+amount_ratio = 0.0
+
+[node name="SpaceshipThrusterParticles" parent="SimpleSpaceshipBody/SimpleSpaceshipMainThrusterRight" index="0" instance=ExtResource("3_p8ohq")]
+amount_ratio = 0.0
+
+[node name="SimpleSpaceshipPilotSeat" parent="SimpleSpaceshipBody" index="5"]
+use_local_controls = true
+
+[node name="SpaceshipThrusterParticles" parent="SimpleSpaceshipBody/SimpleSpaceshipReverseThrusterLeft" index="0" instance=ExtResource("3_p8ohq")]
+amount_ratio = 0.0
+
+[node name="SpaceshipThrusterParticles" parent="SimpleSpaceshipBody/SimpleSpaceshipReverseThrusterRight" index="0" instance=ExtResource("3_p8ohq")]
+amount_ratio = 0.0
+
+[node name="SpaceshipThrusterParticles" parent="SimpleSpaceshipBody/SimpleSpaceshipSideThrusterLeft" index="0" instance=ExtResource("3_p8ohq")]
+amount_ratio = 0.0
+
+[node name="SpaceshipThrusterParticles" parent="SimpleSpaceshipBody/SimpleSpaceshipSideThrusterRight" index="0" instance=ExtResource("3_p8ohq")]
+amount_ratio = 0.0
+
+[node name="SpaceshipThrusterParticles" parent="SimpleSpaceshipBody/SimpleSpaceshipTopThruster" index="0" instance=ExtResource("3_p8ohq")]
+amount_ratio = 0.0
+
+[node name="Camera3D" type="Camera3D" parent="SimpleSpaceshipBody"]
+transform = Transform3D(-1, -4.37114e-08, 7.57103e-08, 0, 0.866025, 0.5, -8.74228e-08, 0.5, -0.866025, 0, 2, -4)
+fov = 90.0
+
+[editable path="SimpleSpaceshipBody"]

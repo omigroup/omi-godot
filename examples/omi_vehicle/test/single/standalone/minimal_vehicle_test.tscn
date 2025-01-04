@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://5ujlli6f6jjq"]
+
+[ext_resource type="PackedScene" uid="uid://cmcp0bu4h76y" path="res://examples/omi_vehicle/gltf/minimal_vehicle_body.gltf" id="1_gl1lm"]
+
+[node name="MinimalVehicleTest" type="Node3D"]
+
+[node name="minimal_vehicle" parent="." instance=ExtResource("1_gl1lm")]

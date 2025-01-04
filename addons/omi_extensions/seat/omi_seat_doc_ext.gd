@@ -33,7 +33,7 @@ func _generate_scene_node(state: GLTFState, gltf_node: GLTFNode, scene_parent: N
 		return null
 	# If this node is both a seat and a glTF trigger, generate the Area3D-derived Seat3D node.
 	# Else, if this is not any kind of trigger, don't generate a Seat3D/Area3D, just set node metadata later.
-	var trigger = gltf_node.get_additional_data(&"GLTFPhysicsTrigger")
+	var trigger = gltf_node.get_additional_data(&"GLTFPhysicsTriggerShape")
 	if trigger == null:
 		trigger = gltf_node.get_additional_data(&"GLTFPhysicsCompoundTriggerNodes")
 		if trigger == null:
@@ -42,7 +42,12 @@ func _generate_scene_node(state: GLTFState, gltf_node: GLTFNode, scene_parent: N
 				return null
 			if trigger.body_type != "trigger":
 				return null
-	return Seat3D.from_points(seat_dict["back"], seat_dict["foot"], seat_dict["knee"], seat_dict.get("angle", TAU * 0.25))
+	var seat = Seat3D.from_points(seat_dict["back"], seat_dict["foot"], seat_dict["knee"], seat_dict.get("angle", TAU * 0.25))
+	if trigger is GLTFPhysicsShape:
+		var shape: CollisionShape3D = trigger.to_node(true)
+		shape.name = gltf_node.resource_name + "Shape"
+		seat.add_child(shape)
+	return seat
 
 
 func _import_node(_state: GLTFState, gltf_node: GLTFNode, json: Dictionary, node: Node) -> Error:

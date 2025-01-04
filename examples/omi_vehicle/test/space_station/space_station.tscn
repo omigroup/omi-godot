@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://ci6mmo25jlpo2"]
+
+[ext_resource type="PackedScene" uid="uid://bmbkstugq3cyh" path="res://examples/test_space_environment.tscn" id="1_5nxgo"]
+[ext_resource type="PackedScene" uid="uid://cwnqk815f83vx" path="res://examples/omi_vehicle/gltf/low_poly_space_station/low_poly_space_station.gltf" id="2_1dwbt"]
+[ext_resource type="PackedScene" uid="uid://buvfofna4tm36" path="res://examples/omi_vehicle/test/space_station/astronaut_player/astronaut_player.tscn" id="3_kc33a"]
+[ext_resource type="PackedScene" uid="uid://csy3u0tn8hups" path="res://examples/omi_vehicle/gltf/simple_spaceship/simple_spaceship.gltf" id="3_wp5ra"]
+[ext_resource type="PackedScene" uid="uid://bhaocqu71w46d" path="res://examples/omi_vehicle/test/single/space_ship_station/spaceship_thruster_particles.tscn" id="4_duicr"]
+[ext_resource type="PackedScene" uid="uid://bm08gpxby4g2w" path="res://examples/omi_vehicle/gltf/rocket_ship/rocket_ship.gltf" id="6_y7s1j"]
+[ext_resource type="PackedScene" uid="uid://b3pg7oc65ty0b" path="res://examples/omi_vehicle/test/single/rocket_ship_station/rocket_ship_thruster_particles.tscn" id="8_yteju"]
+
+[node name="SpaceShipAndStation" type="Node3D"]
+
+[node name="TestSpaceEnvironment" parent="." instance=ExtResource("1_5nxgo")]
+
+[node name="SpaceStationBody" parent="." instance=ExtResource("2_1dwbt")]
+
+[node name="AstronautPlayer" parent="." instance=ExtResource("3_kc33a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.10541)
+
+[node name="SimpleSpaceshipBody" parent="." instance=ExtResource("3_wp5ra")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -20)
+can_sleep = false
+
+[node name="SpaceshipThrusterParticles" parent="SimpleSpaceshipBody/SimpleSpaceshipBottomThruster" index="0" instance=ExtResource("4_duicr")]
+amount_ratio = 0.0
+
+[node name="SpaceshipThrusterParticles" parent="SimpleSpaceshipBody/SimpleSpaceshipMainThrusterLeft" index="0" instance=ExtResource("4_duicr")]
+amount_ratio = 0.0
+
+[node name="SpaceshipThrusterParticles" parent="SimpleSpaceshipBody/SimpleSpaceshipMainThrusterRight" index="0" instance=ExtResource("4_duicr")]
+amount_ratio = 0.0
+
+[node name="SpaceshipThrusterParticles" parent="SimpleSpaceshipBody/SimpleSpaceshipReverseThrusterLeft" index="0" instance=ExtResource("4_duicr")]
+amount_ratio = 0.0
+
+[node name="SpaceshipThrusterParticles" parent="SimpleSpaceshipBody/SimpleSpaceshipReverseThrusterRight" index="0" instance=ExtResource("4_duicr")]
+amount_ratio = 0.0
+
+[node name="SpaceshipThrusterParticles" parent="SimpleSpaceshipBody/SimpleSpaceshipSideThrusterLeft" index="0" instance=ExtResource("4_duicr")]
+amount_ratio = 0.0
+
+[node name="SpaceshipThrusterParticles" parent="SimpleSpaceshipBody/SimpleSpaceshipSideThrusterRight" index="0" instance=ExtResource("4_duicr")]
+amount_ratio = 0.0
+
+[node name="SpaceshipThrusterParticles" parent="SimpleSpaceshipBody/SimpleSpaceshipTopThruster" index="0" instance=ExtResource("4_duicr")]
+amount_ratio = 0.0
+
+[node name="RocketShipBody" parent="." instance=ExtResource("6_y7s1j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -20)
+
+[node name="RocketShipThrusterParticles" parent="RocketShipBody/RocketShipThruster" index="0" instance=ExtResource("8_yteju")]
+amount_ratio = 0.0
+
+[editable path="SimpleSpaceshipBody"]
+[editable path="RocketShipBody"]

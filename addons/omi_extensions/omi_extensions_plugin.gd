@@ -15,6 +15,8 @@ func _enter_tree() -> void:
 	GLTFDocument.register_gltf_document_extension(ext)
 	ext = GLTFDocumentExtensionOMIPhysicsJoint.new()
 	GLTFDocument.register_gltf_document_extension(ext)
+	ext = GLTFDocumentExtensionOMIVehicle.new()
+	GLTFDocument.register_gltf_document_extension(ext, true)
 	add_node_3d_gizmo_plugin(seat_gizmo_plugin)
 
 
