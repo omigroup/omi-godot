@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bw85srnwdludp"]
+
+[ext_resource type="PackedScene" uid="uid://tcfv6pigbnkq" path="res://examples/omi_environment_sky/gltf/mars_physical_sky.gltf" id="1_p4anq"]
+
+[node name="MarsPhysicalSky" type="Node3D"]
+
+[node name="mars_physical_sky" parent="." instance=ExtResource("1_p4anq")]

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3h654rfomenm"]
+
+[ext_resource type="PackedScene" uid="uid://ch3oeqlh4r2be" path="res://examples/omi_environment_sky/gltf/epic_blue_sunset_equirectangular.gltf" id="1_jbhmw"]
+
+[node name="EpicBlueSunsetEquirectangularTest" type="Node3D"]
+
+[node name="epic_blue_sunset_equirectangular" parent="." instance=ExtResource("1_jbhmw")]

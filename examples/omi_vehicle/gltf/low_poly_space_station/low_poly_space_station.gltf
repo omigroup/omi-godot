@@ -46,13 +46,13 @@
         {
             "children": [1, 2],
             "name": "SpaceStationBody",
-			"extensions": {
-				"OMI_physics_body": {
-					"motion": {
-						"type": "static"
-					}
-				}
-			}
+            "extensions": {
+                "OMI_physics_body": {
+                    "motion": {
+                        "type": "static"
+                    }
+                }
+            }
         },
         {
             "mesh": 0,
@@ -60,13 +60,13 @@
         },
         {
             "name": "SpaceStationTrimeshShape",
-			"extensions": {
-				"OMI_physics_body": {
-					"collider": {
-						"shape": 0
-					}
-				}
-			}
+            "extensions": {
+                "OMI_physics_body": {
+                    "collider": {
+                        "shape": 0
+                    }
+                }
+            }
         }
     ],
     "materials": [
