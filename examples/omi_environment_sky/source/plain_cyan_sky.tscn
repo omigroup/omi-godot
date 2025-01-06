@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://fwekcrbjq8n1"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fd224"]
+
+[sub_resource type="Environment" id="Environment_dyc4h"]
+background_mode = 1
+background_color = Color(0.5, 1, 1, 1)
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="PlainCyanSky" type="Node3D"]
+
+[node name="Box" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_fd224")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dyc4h")

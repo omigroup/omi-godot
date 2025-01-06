@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c432623gavulv"]
+
+[ext_resource type="PackedScene" uid="uid://ctnmbw5dayjc1" path="res://examples/omi_environment_sky/gltf/nebula_cubemap.gltf" id="1_8pc5h"]
+
+[node name="NebulaCubemapTest" type="Node3D"]
+
+[node name="nebula_cubemap" parent="." instance=ExtResource("1_8pc5h")]

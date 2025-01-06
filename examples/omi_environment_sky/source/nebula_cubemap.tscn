@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://baedr3l6oxn84"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_81whq"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_puxh6"]
+
+[sub_resource type="Sky" id="Sky_n0xaa"]
+sky_material = SubResource("PanoramaSkyMaterial_puxh6")
+
+[sub_resource type="Environment" id="Environment_wjgug"]
+background_mode = 2
+sky = SubResource("Sky_n0xaa")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="NebulaCubemap" type="Node3D"]
+
+[node name="Box" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_81whq")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.956305, 0.227215, -0.183995, 0, 0.62932, 0.777146, 0.292372, 0.743188, -0.601822, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wjgug")
