@@ -114,7 +114,7 @@ static func find_by_json_ld_id(json_ld_container: Variant, json_ld_id: String): 
 
 
 ## Converts a language tag (ex: RDF "en-us") to a country code (ex: "en_US").
-## This funcion helps us avoid mixing up languages and countries when using String
+## This function helps us avoid mixing up languages and countries when using String
 ## similarity to compare county codes. For example, "ar" Arabic and "AR" Argentina.
 static func language_tag_to_culture_code(language_tag: String) -> String:
 	language_tag = language_tag.replace("-", "_")

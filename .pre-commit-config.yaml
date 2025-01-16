@@ -1,0 +1,23 @@
+default_language_version:
+  python: python3
+
+exclude: |
+  (?x)^(
+    .github/omi_group_logo.svg |
+    examples/omi_vehicle/source/hovercraft.tscn
+  )
+
+repos:
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.3.0
+    hooks:
+      - id: codespell
+        additional_dependencies: [tomli]
+
+  - repo: local
+    hooks:
+      - id: file-format
+        name: file-format
+        language: python
+        entry: python .github/workflows/file_format.py
+        types_or: [text]
