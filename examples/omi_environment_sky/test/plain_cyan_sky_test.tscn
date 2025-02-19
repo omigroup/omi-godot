@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://tycm31vg7uco"]
+
+[ext_resource type="PackedScene" uid="uid://25714ws44vks" path="res://examples/omi_environment_sky/gltf/plain_cyan_sky.gltf" id="1_scqhe"]
+
+[node name="PlainCyanSkyTest" type="Node3D"]
+
+[node name="PlainCyanSky" parent="." instance=ExtResource("1_scqhe")]
