@@ -176,7 +176,6 @@
             "name": "ConvexHullShape"
         },
         {
-            "extensions": {},
             "mesh": 1,
             "name": "ConvexMesh"
         }

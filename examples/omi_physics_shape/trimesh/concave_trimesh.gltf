@@ -142,7 +142,6 @@
             "name": "ConcaveTrimeshShape"
         },
         {
-            "extensions": {},
             "mesh": 0,
             "name": "BoxMeshInstance"
         }

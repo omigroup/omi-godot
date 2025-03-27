@@ -147,7 +147,6 @@
     "images": [{ "uri": "rocket_ship_base_color.png" }],
     "materials": [
         {
-            "extensions": {},
             "name": "RocketShipMaterial",
             "pbrMetallicRoughness": {
                 "baseColorFactor": [1, 1, 1, 1],
