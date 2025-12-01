@@ -14,7 +14,7 @@ const TORQUE_STABILIZATION = 0.5
 var current_hover_ratio: float = 0.0
 ## The ratio of the maximum gimbal angles the hover thruster is rotated to. The vector length may not be longer than 1.0. Note: Gimbal must be set before adding the node to the tree.
 @export var current_gimbal_ratio := Vector2(0.0, 0.0)
-## The maximum gimbal energy in Newton-meters (N⋅m or kg⋅m²/s²) that the hover thruster can provide.
+## The maximum hover energy in Newton-meters (N⋅m or kg⋅m²/s²) that the hover thruster can provide.
 @export_custom(PROPERTY_HINT_NONE, "suffix:kg\u22C5m\u00B2/s\u00B2 (N\u22C5m)")
 var max_hover_energy: float = 0.0
 ## The maximum angle the hover thruster can gimbal or rotate in radians. Note: Gimbal must be set before adding the node to the tree.
