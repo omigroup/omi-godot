@@ -4,10 +4,10 @@ extends Resource
 
 
 ## The ratio of the maximum force the wheel is using for propulsion.
-@export_range(0.0, 1.0, 0.01)
+@export_range(-1.0, 1.0, 0.01)
 var current_force_ratio: float = 0.0
 ## The ratio of the maximum steering angle the wheel is rotated to.
-@export_range(0.0, 1.0, 0.01)
+@export_range(-1.0, 1.0, 0.01)
 var current_steering_ratio: float = 0.0
 ## The maximum force in Newtons (kg⋅m/s²) that the wheel can provide.
 @export_custom(PROPERTY_HINT_NONE, "suffix:kg\u22C5m/s\u00B2 (N)")
