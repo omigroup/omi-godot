@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://b5y0bhenjvubp"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_v8cks"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wj58l"]
+transparency = 3
+alpha_hash_scale = 1.0
+alpha_antialiasing_mode = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i0vps"]
+blend_mode = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bvvji"]
+transparency = 2
+alpha_scissor_threshold = 0.25
+alpha_antialiasing_mode = 0
+blend_mode = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pl7qt"]
+blend_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tlexc"]
+blend_mode = 3
+
+[node name="OMIMaterialsBlend" type="Node3D"]
+
+[node name="Hash" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+mesh = SubResource("BoxMesh_v8cks")
+surface_material_override/0 = SubResource("StandardMaterial3D_wj58l")
+
+[node name="Add" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+mesh = SubResource("BoxMesh_v8cks")
+surface_material_override/0 = SubResource("StandardMaterial3D_i0vps")
+
+[node name="AddAndScissorClipMask" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_v8cks")
+surface_material_override/0 = SubResource("StandardMaterial3D_bvvji")
+
+[node name="Subtract" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+mesh = SubResource("BoxMesh_v8cks")
+surface_material_override/0 = SubResource("StandardMaterial3D_pl7qt")
+
+[node name="Multiply" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+mesh = SubResource("BoxMesh_v8cks")
+surface_material_override/0 = SubResource("StandardMaterial3D_tlexc")
