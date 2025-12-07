@@ -13,7 +13,7 @@ var current_steering_ratio: float = 0.0
 @export_custom(PROPERTY_HINT_NONE, "suffix:kg\u22C5m/s\u00B2 (N)")
 var max_force: float = 0.0
 ## The maximum angle in radians that the wheel can steer.
-@export_range(0, 90, 0.1, "radians")
+@export_range(0.0, 90.0, 0.1, "radians")
 var max_steering_angle: float = 0.0
 
 var _negate_steering: bool = false

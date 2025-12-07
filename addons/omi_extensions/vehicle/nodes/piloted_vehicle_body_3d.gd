@@ -26,7 +26,7 @@ var gyroscope_torque := Vector3.ZERO
 ## If true, the vehicle should slow its rotation down when not given angular activation input for a specific rotation.
 @export var angular_dampeners: bool = true
 ## If true, the vehicle should slow itself down when not given linear activation input for a specific direction.
-@export var linear_dampeners: bool = false
+@export var linear_dampeners: bool = true
 ## If true, the vehicle should use a throttle for linear movement. If max_speed is non-negative, the throttle should be a ratio of that speed, otherwise it should be a ratio of thrust power.
 @export var use_throttle: bool = false
 
