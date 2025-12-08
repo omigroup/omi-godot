@@ -69,28 +69,28 @@ transform = Transform3D(0.707107, 0.579228, -0.40558, 0, 0.573576, 0.819152, 0.7
 target_position = Vector3(0, 0, -1000)
 script = ExtResource("2_ky2er")
 max_hover_energy = 30000.0
-max_gimbal = 0.25
+max_gimbal_radians = 0.25
 
 [node name="HoverThrusterBR" type="RayCast3D" parent="."]
 transform = Transform3D(0.707107, -0.579228, 0.40558, 0, 0.573576, 0.819152, -0.707107, -0.579228, 0.40558, -1.2, -0.25, -2.1)
 target_position = Vector3(0, 0, -1000)
 script = ExtResource("2_ky2er")
 max_hover_energy = 30000.0
-max_gimbal = 0.25
+max_gimbal_radians = 0.25
 
 [node name="HoverThrusterFL" type="RayCast3D" parent="."]
 transform = Transform3D(-0.707107, 0.579228, -0.40558, 0, 0.573576, 0.819152, 0.707107, 0.579228, -0.40558, 1.2, -0.25, 2.1)
 target_position = Vector3(0, 0, -1000)
 script = ExtResource("2_ky2er")
 max_hover_energy = 30000.0
-max_gimbal = 0.25
+max_gimbal_radians = 0.25
 
 [node name="HoverThrusterFR" type="RayCast3D" parent="."]
 transform = Transform3D(-0.707107, -0.579228, 0.40558, 0, 0.573576, 0.819152, -0.707107, 0.579228, -0.40558, -1.2, -0.25, 2.1)
 target_position = Vector3(0, 0, -1000)
 script = ExtResource("2_ky2er")
 max_hover_energy = 30000.0
-max_gimbal = 0.25
+max_gimbal_radians = 0.25
 
 [node name="PassengerSeatFront" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, 0)

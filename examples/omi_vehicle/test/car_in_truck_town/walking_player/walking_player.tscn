@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cbbund73l3qmj"]
 
-[ext_resource type="Script" uid="uid://bn5opvkiheo0s" path="res://examples/omi_vehicle/test/car_in_truck_town/walking_player/walking_player.gd" id="1_32edx"]
-[ext_resource type="Script" uid="uid://df1uwcybhk00r" path="res://examples/omi_vehicle/test/space_station/astronaut_player/seat_interact_ray.gd" id="2_7jn46"]
-[ext_resource type="Script" uid="uid://br06st1iho5ku" path="res://examples/omi_vehicle/test/space_station/astronaut_player/camera.gd" id="3_v8ljx"]
+[ext_resource type="Script" uid="uid://tutxb5waci6w" path="res://examples/omi_vehicle/test/car_in_truck_town/walking_player/walking_player.gd" id="1_32edx"]
+[ext_resource type="Script" uid="uid://bbhcafvomy844" path="res://examples/omi_vehicle/test/space_station/astronaut_player/seat_interact_ray.gd" id="2_7jn46"]
+[ext_resource type="Script" uid="uid://nk4xuki5wn7" path="res://examples/omi_vehicle/test/space_station/astronaut_player/camera.gd" id="3_v8ljx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wjd78"]
 radius = 0.375
@@ -27,6 +27,7 @@ script = ExtResource("2_7jn46")
 player_body = NodePath("../..")
 
 [node name="CameraHolder" type="Node3D" parent="CollisionShape3D/SeatInteractRay"]
+process_mode = 3
 script = ExtResource("3_v8ljx")
 
 [node name="Camera3D" type="Camera3D" parent="CollisionShape3D/SeatInteractRay/CameraHolder"]
