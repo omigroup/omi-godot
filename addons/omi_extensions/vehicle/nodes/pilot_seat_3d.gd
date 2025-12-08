@@ -12,12 +12,12 @@ enum ControlScheme {
 	CAR,
 	## Uses WASDRF for linear movement, QE roll, mouse pitch/yaw, or IJKLUO rotation.
 	SIX_DOF,
+	## Like SIX_DOF but flattens the horizontal WASD input, good for hovercrafts.
+	SIX_DOF_HORIZONTAL,
 	## Uses WASDQE for rotation, with W as up and S as down, Shift throttle up, Ctrl throttle down.
 	NAVBALL,
 	## Uses WASDQE for rotation, with W as down and S as up, like Kerbal Space Program.
 	NAVBALL_INVERTED,
-	## Like SIX_DOF but flattens the horizontal WASD input, good for hovercrafts.
-	HORIZONTAL_SIX_DOF,
 }
 
 const MOUSE_SENSITIVITY: float = 0.1
@@ -60,6 +60,8 @@ func _physics_process(delta: float) -> void:
 	var angular_input: Vector3 = _get_angular_input(actual_control_scheme)
 	var linear_input: Vector3 = _get_linear_input(actual_control_scheme)
 	_mouse_input = Vector2.ZERO
+	if Input.is_action_just_pressed(&"toggle_angular_dampeners"):
+		piloted_vehicle_node.angular_dampeners = not piloted_vehicle_node.angular_dampeners
 	if Input.is_action_just_pressed(&"toggle_linear_dampeners"):
 		piloted_vehicle_node.linear_dampeners = not piloted_vehicle_node.linear_dampeners
 	piloted_vehicle_node.angular_activation = angular_input
@@ -94,6 +96,11 @@ func exit_pilot_seat() -> void:
 		piloted_vehicle_node.linear_activation = Vector3.ZERO
 
 
+func does_pilot_seat_want_to_keep_upright() -> bool:
+	var actual_control_scheme: ControlScheme = _get_actual_control_scheme()
+	return actual_control_scheme == ControlScheme.CAR or actual_control_scheme == ControlScheme.SIX_DOF_HORIZONTAL
+
+
 func _get_actual_control_scheme() -> ControlScheme:
 	if control_scheme != ControlScheme.AUTO:
 		return control_scheme
@@ -102,7 +109,7 @@ func _get_actual_control_scheme() -> ControlScheme:
 	if piloted_vehicle_node.has_wheels():
 		return ControlScheme.CAR
 	if piloted_vehicle_node.has_hover_thrusters():
-		return ControlScheme.HORIZONTAL_SIX_DOF
+		return ControlScheme.SIX_DOF_HORIZONTAL
 	return ControlScheme.SIX_DOF
 
 
@@ -157,7 +164,7 @@ func _get_linear_input(actual_control_scheme: ControlScheme) -> Vector3:
 				Input.get_axis(&"rotate_pitch_down", &"rotate_pitch_up"),
 				Input.get_axis(&"throttle_decrease", &"throttle_increase")
 			)
-		ControlScheme.HORIZONTAL_SIX_DOF:
+		ControlScheme.SIX_DOF_HORIZONTAL:
 			var vehicle_euler: Vector3 = piloted_vehicle_node.basis.get_euler()
 			var flatten := Basis.from_euler(Vector3(-vehicle_euler.x, 0.0, -vehicle_euler.z))
 			return flatten * Vector3(

@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=4 uid="uid://c60hy356x1vfn"]
 
-[ext_resource type="Script" uid="uid://vr67n3dj53we" path="res://addons/omi_extensions/vehicle/nodes/piloted_vehicle_body_3d.gd" id="1_yd6sw"]
+[ext_resource type="Script" uid="uid://digm3y42mikqe" path="res://addons/omi_extensions/vehicle/nodes/piloted_vehicle_body_3d.gd" id="1_yd6sw"]
 [ext_resource type="Texture2D" uid="uid://msnktntaysgn" path="res://examples/omi_vehicle/source/rocket_ship_RocketShip_BaseColor.png" id="2_ep1pm"]
-[ext_resource type="Script" uid="uid://c1vsgtq6nx77k" path="res://addons/omi_extensions/vehicle/nodes/vehicle_thruster_3d.gd" id="3_ijsqw"]
-[ext_resource type="Script" uid="uid://bheenmqo6ebnf" path="res://addons/omi_extensions/vehicle/nodes/pilot_seat_3d.gd" id="4_h40gw"]
+[ext_resource type="Script" uid="uid://8gmos7qh4x83" path="res://addons/omi_extensions/vehicle/nodes/vehicle_thruster_3d.gd" id="3_ijsqw"]
+[ext_resource type="Script" uid="uid://ci1jce7fwkldv" path="res://addons/omi_extensions/vehicle/nodes/pilot_seat_3d.gd" id="4_h40gw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cqufy"]
 resource_name = "RocketShipMaterial"
@@ -89,7 +89,7 @@ shape = SubResource("ConvexPolygonShape3D_6llia")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.8)
 script = ExtResource("3_ijsqw")
 max_force = 50000.0
-max_gimbal = 0.125
+max_gimbal_radians = 0.125
 
 [node name="RocketShipPilotSeat3D" type="Area3D" parent="." node_paths=PackedStringArray("piloted_vehicle_node")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)

@@ -6,18 +6,40 @@ extends Node3D
 
 
 ## If false, the thruster will not gimbal or apply forces.
-@export var enabled: bool = true
-## The ratio of the maximum thrust force the thruster is currently using for propulsion.
-@export_range(0.0, 1.0, 0.01)
-var current_force_ratio: float = 0.0
-## The ratio of the maximum gimbal angles the thruster is rotated to. The vector length may not be longer than 1.0. Note: Gimbal must be set before adding the node to the tree.
-@export var current_gimbal_ratio := Vector2(0.0, 0.0)
-## The maximum thrust force in Newtons (kg⋅m/s²) that the thruster can provide.
-@export_custom(PROPERTY_HINT_NONE, "suffix:kg\u22C5m/s\u00B2 (N)")
-var max_force: float = 0.0
-## The maximum angle the thruster can gimbal or rotate in radians. Note: Gimbal must be set before adding the node to the tree.
+@export var active: bool = true
+
+# Gimbal
+## The maximum angle the thruster can gimbal or rotate in radians.
+## Note: The initial gimbal must be set before adding the node to the tree.
 @export_custom(PROPERTY_HINT_NONE, "suffix:rad")
-var max_gimbal: float = 0.0
+var max_gimbal_radians: float = 0.0
+## Optionally, you may also want to allow the gimbal to be adjusted based on linear input.
+## For example, if the user wants to go forward, and the thruster points downward,
+## we can gimbal the thruster slightly backward to help thrust forward.
+## The default is 0.0 for thrusters and 0.5 for hover thrusters.
+@export_range(0.0, 1.0, 0.01)
+var linear_gimbal_adjust_ratio: float = 0.0
+## The speed at which the gimbal angle changes, in radians per second. If negative, the angle changes instantly.
+@export_custom(PROPERTY_HINT_NONE, "suffix:rad/s")
+var gimbal_radians_per_second: float = 1.0
+## The ratio of the maximum gimbal angles the thruster is targeting to be rotated to. The vector length may not be longer than 1.0.
+## Note: The initial gimbal must be set before adding the node to the tree.
+@export var target_gimbal_ratio := Vector2(0.0, 0.0)
+## The current gimbal angles in radians, tending towards target_gimbal_ratio * max_gimbal_radians.
+## If gimbal_radians_per_second is negative, this will equal the target value.
+var _current_gimbal_radians := Vector2(0.0, 0.0)
+
+# Thrust Force
+## The maximum thrust force in Newtons (kg⋅m/s²) that the thruster can provide.
+@export_custom(PROPERTY_HINT_NONE, "suffix:N (kg\u22C5m/s\u00B2)")
+var max_force: float = 0.0
+## The speed at which the thruster force changes, in Newtons per second. If negative, the force changes instantly.
+@export_custom(PROPERTY_HINT_NONE, "suffix:N/s (kg\u22C5m/s\u00B3)")
+var force_change_per_second: float = -1.0
+## The ratio of the maximum thrust force the thruster is targeting for propulsion.
+@export_range(0.0, 1.0, 0.01)
+var target_force_ratio: float = 0.0
+var _current_force: float = 0.0
 
 var _parent_body: RigidBody3D = null
 var _particles_node: GPUParticles3D = null
@@ -25,6 +47,7 @@ var _particles_node: GPUParticles3D = null
 var _parent_transform_to_body := Transform3D.IDENTITY
 var _parent_quaternion_to_body := Quaternion.IDENTITY
 var _rest_quaternion := Quaternion.IDENTITY
+var _rest_quaternion_to_body := Quaternion.IDENTITY
 var _body_to_rest_quaternion := Quaternion.IDENTITY
 var _negate_gimbal: bool = true
 
@@ -42,57 +65,84 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if _parent_body == null or not enabled:
-		if _particles_node:
+	# Move the current gimbal radians towards the target value.
+	var target_gimbal_radians: Vector2 = target_gimbal_ratio.limit_length() * max_gimbal_radians
+	if gimbal_radians_per_second < 0.0:
+		_current_gimbal_radians = target_gimbal_radians
+	else:
+		var gimbal_change: float = gimbal_radians_per_second * delta
+		_current_gimbal_radians = _current_gimbal_radians.move_toward(target_gimbal_radians, gimbal_change)
+	quaternion = _rest_quaternion * _get_gimbal_rotation_quaternion()
+	# Set force and particles to zero if inactive.
+	if _parent_body == null or max_force == 0.0 or not active:
+		_current_force = 0.0
+		if _particles_node != null:
 			_particles_node.amount_ratio = 0.0
 		return
-	quaternion = _rest_quaternion * _get_gimbal_rotation_quaternion()
-	if _particles_node:
-		_particles_node.amount_ratio = current_force_ratio
+	# Move the current thrust force towards the target value.
+	var target_force: float = target_force_ratio * max_force
+	if force_change_per_second < 0.0:
+		_current_force = target_force
+	else:
+		var force_change: float = force_change_per_second * delta
+		_current_force = move_toward(_current_force, target_force, force_change)
+	if _particles_node != null:
+		_particles_node.amount_ratio = absf(_current_force / max_force)
 	if _parent_body == null:
 		return
-	var force_amount: float = current_force_ratio * max_force
 	var force_dir: Vector3 = _parent_body.basis * _parent_transform_to_body.basis * basis.z
 	var force_pos: Vector3 = Transform3D(_parent_body.basis) * _parent_transform_to_body * position
-	_parent_body.apply_force(force_dir * force_amount, force_pos)
+	_parent_body.apply_force(force_dir * _current_force, force_pos)
 
 
 func recalculate_transforms() -> void:
 	if _parent_body == null:
 		printerr("Error: VehicleThruster3D must be a descendant of a RigidBody3D node (preferably PilotedVehicleBody3D).")
 		return
+	# Get the transform from the parent to the body.
 	_parent_transform_to_body = Transform3D.IDENTITY
 	var parent: Node = get_parent()
-	while parent != _parent_body:
+	while parent != _parent_body and parent is Node3D:
 		_parent_transform_to_body = parent.transform * _parent_transform_to_body
 		parent = parent.get_parent()
+	# Get the rotation of the rest orientation of the part's gimbal.
 	_rest_quaternion = quaternion * _get_gimbal_rotation_quaternion().inverse()
+	# Use both of those to determine the rest quaternion to body and its inverse.
 	_parent_quaternion_to_body = _parent_transform_to_body.basis.get_rotation_quaternion()
-	_body_to_rest_quaternion = (_parent_quaternion_to_body * _rest_quaternion).inverse()
+	_rest_quaternion_to_body = _parent_quaternion_to_body * _rest_quaternion
+	_body_to_rest_quaternion = _rest_quaternion_to_body.inverse()
+	# Where is this part relative to the center of mass? We may need to negate the gimbal.
 	var rest_transform_to_body: Transform3D = _parent_transform_to_body * Transform3D(Basis(_rest_quaternion), position)
 	var offset: Vector3 = rest_transform_to_body.origin - _parent_body.center_of_mass
 	_negate_gimbal = offset.dot(rest_transform_to_body.basis.z) < 0.0
 
 
-func set_gimbal_from_vehicle_angular_input(angular_input: Vector3) -> void:
-	var rotated: Vector3 = _body_to_rest_quaternion * angular_input
-	var gimbal_amount: float = -max_gimbal if _negate_gimbal else max_gimbal
-	current_gimbal_ratio = Vector2(rotated.x, rotated.y) / gimbal_amount
-
-
-func set_thrust_from_vehicle_linear_input(linear_input: Vector3) -> void:
-	var thrust_direction: Vector3 = (_parent_quaternion_to_body * quaternion) * Vector3(0.0, 0.0, 1.0)
-	current_force_ratio = clampf(linear_input.dot(thrust_direction), 0.0, 1.0)
+func set_from_vehicle_input(angular_input: Vector3, linear_input: Vector3) -> void:
+	if max_gimbal_radians == 0.0:
+		target_gimbal_ratio = Vector2.ZERO
+		return
+	# Set the gimbal based on the local angular input.
+	var local_angular_input: Vector3 = _body_to_rest_quaternion * angular_input
+	target_gimbal_ratio = Vector2(-local_angular_input.x, -local_angular_input.y).limit_length()
+	# Adjust the gimbal based on linear input (optional but significantly improves handling).
+	if linear_input == Vector3.ZERO or linear_gimbal_adjust_ratio == 0.0:
+		return
+	var current_rot: Quaternion = _rest_quaternion_to_body * _get_gimbal_rotation_quaternion()
+	var local_linear_input: Vector3 = current_rot.inverse() * linear_input
+	var linear_gimbal_adjust: Vector2 = Vector2(-local_linear_input.y, local_linear_input.x).limit_length() * linear_gimbal_adjust_ratio
+	target_gimbal_ratio = (target_gimbal_ratio + linear_gimbal_adjust).limit_length()
+	# Set thrust from vehicle linear input.
+	var thrust_direction: Vector3 = current_rot * Vector3(0.0, 0.0, 1.0)
+	target_force_ratio = clampf(linear_input.dot(thrust_direction), 0.0, 1.0)
 
 
 func _get_gimbal_rotation_quaternion() -> Quaternion:
-	if current_gimbal_ratio.is_zero_approx() or is_zero_approx(max_gimbal):
+	if _current_gimbal_radians.is_zero_approx():
 		return Quaternion.IDENTITY
-	var rot_angles: Vector2 = current_gimbal_ratio.limit_length() * max_gimbal
-	var angle_mag: float = rot_angles.length()
-	var sin_norm_angle: float = sin(angle_mag * 0.5) / angle_mag
-	var cos_half_angle: float = cos(angle_mag * 0.5)
-	return Quaternion(rot_angles.x * sin_norm_angle, rot_angles.y * sin_norm_angle, 0.0, cos_half_angle)
+	var angle_mag: float = _current_gimbal_radians.length()
+	var sin_norm: float = sin(angle_mag / 2.0) / angle_mag
+	var cos_half: float = cos(angle_mag / 2.0)
+	return Quaternion(_current_gimbal_radians.x * sin_norm, _current_gimbal_radians.y * sin_norm, 0.0, cos_half)
 
 
 func _get_parent_body() -> RigidBody3D:
