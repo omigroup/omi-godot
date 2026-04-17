@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=4 uid="uid://ca2vi6lj62t2o"]
+
+[ext_resource type="PackedScene" uid="uid://b27cknh75i7cu" path="res://examples/omi_physics_gravity/test/helper/test_player.tscn" id="2_62k7g"]
+[ext_resource type="PackedScene" uid="uid://xhdrfkabapnt" path="res://examples/omi_physics_gravity/gltf/earth_millionth_scale/earth_millionth_scale.gltf" id="2_w6yu6"]
+[ext_resource type="PackedScene" uid="uid://c4vdw2w23qoki" path="res://examples/omi_physics_gravity/test/helper/test_space_environment.tscn" id="3_3rc18"]
+[ext_resource type="PackedScene" uid="uid://bpddn41uk06ct" path="res://examples/omi_physics_gravity/gltf/ramp_gravity.gltf" id="3_6mn0e"]
+
+[node name="TestEarthGravity" type="Node3D"]
+
+[node name="EarthMillionthScale" parent="." instance=ExtResource("2_w6yu6")]
+
+[node name="RampGravity" parent="." instance=ExtResource("3_6mn0e")]
+transform = Transform3D(-4.37114e-08, 3.48787e-16, 1, 3.48787e-16, 1, -3.48787e-16, -0.999999, 3.48787e-16, -4.37114e-08, -1, 11.25, 2.08165e-12)
+
+[node name="TestEnvironment" parent="." instance=ExtResource("3_3rc18")]
+
+[node name="TestPlayer" parent="." instance=ExtResource("2_62k7g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.84428, 7.79117, 0)

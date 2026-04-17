@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://b27cknh75i7cu"]
+
+[ext_resource type="Script" path="res://examples/omi_physics_gravity/test/helper/test_player.gd" id="1_pfyb6"]
+[ext_resource type="Script" path="res://examples/omi_physics_gravity/test/helper/test_player_head.gd" id="2_213qy"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5j5nk"]
+radius = 0.65
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2wgql"]
+radius = 0.375
+height = 1.8
+
+[node name="TestPlayer" type="CharacterBody3D"]
+motion_mode = 1
+script = ExtResource("1_pfyb6")
+
+[node name="TestPlayerHead" type="SpringArm3D" parent="." node_paths=PackedStringArray("player_body")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.75, 2.08165e-12)
+spring_length = 3.0
+script = ExtResource("2_213qy")
+player_body = NodePath("..")
+
+[node name="Camera3D" type="Camera3D" parent="TestPlayerHead"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+shape = SubResource("SphereShape3D_5j5nk")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -0.65, 2.08165e-12)
+target_position = Vector3(2.08165e-12, -0.2, 2.08165e-12)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.15, 2.08165e-12)
+mesh = SubResource("CapsuleMesh_2wgql")
