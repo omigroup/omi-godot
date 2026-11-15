@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://tycm31vg7uco"]
 
-[ext_resource type="PackedScene" uid="uid://25714ws44vks" path="res://examples/omi_environment_sky/gltf/plain_cyan_sky.gltf" id="1_scqhe"]
+[ext_resource type="PackedScene" uid="uid://b5cox6faqdlo" path="res://examples/omi_environment_sky/gltf/plain_cyan_sky.gltf" id="1_scqhe"]
 
 [node name="PlainCyanSkyTest" type="Node3D" unique_id=1277074114]
 

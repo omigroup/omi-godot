@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b6g1vwkov857o"]
 
-[ext_resource type="PackedScene" uid="uid://cmnmgfomnmglk" path="res://examples/omi_environment_sky/gltf/space_black_gradient.gltf" id="1_rbmxt"]
+[ext_resource type="PackedScene" uid="uid://c4cjfeyo3rcef" path="res://examples/omi_environment_sky/gltf/space_black_gradient.gltf" id="1_rbmxt"]
 
 [node name="SpaceBlackGradientTest" type="Node3D" unique_id=1999721601]
 

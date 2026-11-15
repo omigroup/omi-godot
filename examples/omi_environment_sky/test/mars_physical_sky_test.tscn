@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bw85srnwdludp"]
 
-[ext_resource type="PackedScene" uid="uid://tcfv6pigbnkq" path="res://examples/omi_environment_sky/gltf/mars_physical_sky.gltf" id="1_p4anq"]
+[ext_resource type="PackedScene" uid="uid://8rt62gt161ag" path="res://examples/omi_environment_sky/gltf/mars_physical_sky.gltf" id="1_p4anq"]
 
 [node name="MarsPhysicalSky" type="Node3D" unique_id=630875909]
 
