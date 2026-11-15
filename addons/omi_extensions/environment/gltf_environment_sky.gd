@@ -4,6 +4,7 @@ extends Resource
 
 
 const CUBEMAP_SKY_SHADER: Shader = preload("res://addons/omi_extensions/environment/cubemap_sky.gdshader")
+const PLAIN_SKY_SHADER: Shader = preload("res://addons/omi_extensions/environment/plain_sky.gdshader")
 const CUBEMAP_FACE_PARAMETERS: Array[StringName] = [&"face_pos_x", &"face_neg_x", &"face_pos_y", &"face_neg_y", &"face_pos_z", &"face_neg_z"]
 
 var ambient_light_color := Color.BLACK
@@ -11,10 +12,10 @@ var ambient_sky_contribution: float = 1.0
 var rotation := Quaternion.IDENTITY
 var type: String
 
-var gradient_bottom_color := Color(0.2, 0.169, 0.133)
+var gradient_bottom_color := Color(0.2, 0.169, 0.133).srgb_to_linear()
 var gradient_bottom_curve: float = 0.02
-var gradient_horizon_color := Color(0.646, 0.656, 0.671)
-var gradient_top_color := Color(0.385, 0.454, 0.55)
+var gradient_horizon_color := Color(0.646, 0.656, 0.671).srgb_to_linear()
+var gradient_top_color := Color(0.385, 0.454, 0.55).srgb_to_linear()
 var gradient_top_curve: float = 0.15
 var gradient_sun_angle_max: float = 0.5
 var gradient_sun_curve: float = 0.15
@@ -24,7 +25,7 @@ var panorama_cubemap_textures: Array[Texture2D] = []
 var panorama_equirectangular_index: int = -1
 var panorama_equirectangular_texture: Texture2D = null
 
-var physical_ground_color := Color(0.16, 0.1, 0.05)
+var physical_ground_color := Color(0.04, 0.02, 0.01)
 var physical_mie_color := Color.WHITE
 var physical_mie_coefficient: float = 0.000005
 var physical_mie_anisotropy: float = 0.8
@@ -142,7 +143,7 @@ func to_dictionary() -> Dictionary:
 		"physical":
 			var always_write_physical_colors: bool = true
 			var physical: Dictionary = {}
-			if physical_ground_color != Color(0.16, 0.1, 0.05) or always_write_physical_colors:
+			if physical_ground_color != Color(0.04, 0.02, 0.01) or always_write_physical_colors:
 				physical["groundColor"] = [physical_ground_color.r, physical_ground_color.g, physical_ground_color.b]
 			if physical_mie_anisotropy != 0.8:
 				physical["mieAnisotropy"] = physical_mie_anisotropy
@@ -163,18 +164,19 @@ func to_dictionary() -> Dictionary:
 
 static func from_environment(env: Environment) -> GLTFEnvironmentSky:
 	var ret := GLTFEnvironmentSky.new()
-	ret.ambient_light_color = env.ambient_light_color
+	ret.ambient_light_color = env.ambient_light_color.srgb_to_linear()
 	ret.ambient_sky_contribution = env.ambient_light_sky_contribution
 	ret.rotation = Basis.from_euler(env.sky_rotation).get_rotation_quaternion()
 	var bg_mode: Environment.BGMode = env.background_mode
 	match bg_mode:
 		Environment.BG_CLEAR_COLOR:
 			ret.type = "plain"
-			ret.plain_color = ProjectSettings.get_setting("rendering/environment/defaults/default_clear_color", Color())
+			var clear_color: Color = ProjectSettings.get_setting("rendering/environment/defaults/default_clear_color", Color())
+			ret.plain_color = clear_color.srgb_to_linear()
 			return ret
 		Environment.BG_COLOR:
 			ret.type = "plain"
-			ret.plain_color = env.background_color
+			ret.plain_color = env.background_color.srgb_to_linear()
 			return ret
 	var sky: Sky = env.sky
 	if sky == null:
@@ -183,10 +185,10 @@ static func from_environment(env: Environment) -> GLTFEnvironmentSky:
 	if sky_material is ProceduralSkyMaterial:
 		ret.type = "gradient"
 		var procedural_sky: ProceduralSkyMaterial = sky_material
-		ret.gradient_bottom_color = procedural_sky.ground_bottom_color
+		ret.gradient_bottom_color = procedural_sky.ground_bottom_color.srgb_to_linear()
 		ret.gradient_bottom_curve = procedural_sky.ground_curve
-		ret.gradient_horizon_color = procedural_sky.ground_horizon_color
-		ret.gradient_top_color = procedural_sky.sky_top_color
+		ret.gradient_horizon_color = procedural_sky.ground_horizon_color.srgb_to_linear()
+		ret.gradient_top_color = procedural_sky.sky_top_color.srgb_to_linear()
 		ret.gradient_top_curve = procedural_sky.sky_curve
 		ret.gradient_sun_angle_max = deg_to_rad(procedural_sky.sun_angle_max)
 		ret.gradient_sun_curve = procedural_sky.sun_curve
@@ -207,37 +209,45 @@ static func from_environment(env: Environment) -> GLTFEnvironmentSky:
 	elif sky_material is PhysicalSkyMaterial:
 		ret.type = "physical"
 		var physical_sky: PhysicalSkyMaterial = sky_material
-		ret.physical_ground_color = physical_sky.ground_color
+		ret.physical_ground_color = physical_sky.ground_color.srgb_to_linear()
 		ret.physical_mie_anisotropy = physical_sky.mie_eccentricity
-		ret.physical_mie_color = physical_sky.mie_color
+		ret.physical_mie_color = physical_sky.mie_color.srgb_to_linear()
 		# Turbidity is a physically-nonsense multiplier Godot applies on top of Mie scattering.
 		var turbidity: float = physical_sky.turbidity
 		if not is_equal_approx(turbidity, 1.0):
 			push_warning("GLTF: Turbidity is not 1.0, consider adjusting your Godot sky.")
 		ret.physical_mie_coefficient = physical_sky.mie_coefficient * physical_sky.turbidity / 2000
-		ret.physical_rayleigh_color = physical_sky.rayleigh_color
+		ret.physical_rayleigh_color = physical_sky.rayleigh_color.srgb_to_linear()
 		ret.physical_rayleigh_coefficient = physical_sky.rayleigh_coefficient / 100000
+	elif sky_material is ShaderMaterial and sky_material.shader == PLAIN_SKY_SHADER:
+		ret.type = "plain"
+		var sky_color = sky_material.get_shader_parameter(&"sky_color")
+		if sky_color is Color:
+			ret.plain_color = sky_color.srgb_to_linear()
 	return ret
 
 
+# NOTE: glTF colors are linear, while Godot's Environment and sky material
+# color properties are sRGB, so colors are converted in from_environment()
+# and to_environment(). GLTFEnvironmentSky itself stores linear colors.
 func to_environment() -> Environment:
 	var ret := Environment.new()
 	# Set up the environment with the defaults from the editor environment.
 	ret.tonemap_mode = Environment.TONE_MAPPER_FILMIC
 	ret.glow_enabled = true
 	# Set up the environment with the sky settings from this environment.
-	ret.ambient_light_color = ambient_light_color
+	ret.ambient_light_color = ambient_light_color.linear_to_srgb()
 	ret.ambient_light_sky_contribution = ambient_sky_contribution
 	ret.sky_rotation = rotation.get_euler()
 	var sky := Sky.new()
 	match type:
 		"gradient":
 			var procedural_sky := ProceduralSkyMaterial.new()
-			procedural_sky.ground_bottom_color = gradient_bottom_color
+			procedural_sky.ground_bottom_color = gradient_bottom_color.linear_to_srgb()
 			procedural_sky.ground_curve = gradient_bottom_curve
-			procedural_sky.ground_horizon_color = gradient_horizon_color
-			procedural_sky.sky_horizon_color = gradient_horizon_color
-			procedural_sky.sky_top_color = gradient_top_color
+			procedural_sky.ground_horizon_color = gradient_horizon_color.linear_to_srgb()
+			procedural_sky.sky_horizon_color = gradient_horizon_color.linear_to_srgb()
+			procedural_sky.sky_top_color = gradient_top_color.linear_to_srgb()
 			procedural_sky.sky_curve = gradient_top_curve
 			procedural_sky.sun_angle_max = rad_to_deg(gradient_sun_angle_max)
 			procedural_sky.sun_curve = gradient_sun_curve
@@ -256,20 +266,25 @@ func to_environment() -> Environment:
 				sky.sky_material = panorama_sky
 		"physical":
 			var physical_sky := PhysicalSkyMaterial.new()
-			physical_sky.ground_color = physical_ground_color
+			physical_sky.ground_color = physical_ground_color.linear_to_srgb()
 			physical_sky.mie_eccentricity = physical_mie_anisotropy
-			physical_sky.mie_color = physical_mie_color
+			physical_sky.mie_color = physical_mie_color.linear_to_srgb()
 			physical_sky.mie_coefficient = physical_mie_coefficient * 1000
-			physical_sky.rayleigh_color = physical_rayleigh_color
+			physical_sky.rayleigh_color = physical_rayleigh_color.linear_to_srgb()
 			physical_sky.rayleigh_coefficient = physical_rayleigh_coefficient * 100000
 			# Turbidity is a physically-nonsense multiplier Godot applies on top of Mie scattering.
 			# Set it to 1.0 to effectively disable it and use the real Mie scattering.
 			physical_sky.turbidity = 1.0
 			sky.sky_material = physical_sky
 		"plain":
-			ret.background_mode = Environment.BG_COLOR
-			ret.background_color = plain_color
-			return ret
+			# Use a sky shader instead of Environment.BG_COLOR, because Godot
+			# ignores the ambient light sky contribution with BG_COLOR.
+			var shader_sky := ShaderMaterial.new()
+			shader_sky.shader = PLAIN_SKY_SHADER
+			shader_sky.set_shader_parameter(&"sky_color", plain_color.linear_to_srgb())
+			sky.sky_material = shader_sky
+			# A uniform color does not need a high-resolution radiance map.
+			sky.radiance_size = Sky.RADIANCE_SIZE_32
 	ret.background_mode = Environment.BG_SKY
 	ret.sky = sky
 	return ret

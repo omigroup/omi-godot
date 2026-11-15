@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://l35g4li0qq2p"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_rr51e"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rr51e"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_isp12"]
+sky_material = SubResource("ProceduralSkyMaterial_rr51e")
+
+[sub_resource type="Environment" id="Environment_w1hq0"]
+background_mode = 2
+sky = SubResource("Sky_isp12")
+glow_enabled = true
+
+[node name="EarthGradientSky" type="Node3D" unique_id=1627396089]
+
+[node name="Box" type="MeshInstance3D" parent="." unique_id=1419287643]
+mesh = SubResource("BoxMesh_rr51e")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=462315021]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1244475151]
+environment = SubResource("Environment_w1hq0")

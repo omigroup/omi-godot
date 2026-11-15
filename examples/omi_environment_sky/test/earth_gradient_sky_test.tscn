@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://doms4v2pfo33f"]
+
+[ext_resource type="PackedScene" uid="uid://dsd8l1imfpif7" path="res://examples/omi_environment_sky/gltf/earth_gradient_sky.gltf" id="1_6khak"]
+
+[node name="EarthGradientSkyTest" type="Node3D" unique_id=457971327]
+
+[node name="earth_gradient_sky" parent="." unique_id=1777611454 instance=ExtResource("1_6khak")]
