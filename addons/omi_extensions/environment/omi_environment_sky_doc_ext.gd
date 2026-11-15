@@ -8,6 +8,7 @@ extends GLTFDocumentExtension
 
 const KHR_EXTENSION_NAME: String = "KHR_environment_sky"
 const OMI_EXTENSION_NAME: String = "OMI_environment_sky"
+const CUBEMAP_FACE_NAMES: PackedStringArray = ["pos_x", "neg_x", "pos_y", "neg_y", "pos_z", "neg_z"]
 
 
 # Import process.
@@ -113,18 +114,29 @@ func _export_post_convert(gltf_state: GLTFState, root: Node) -> Error:
 	for gltf_env_sky in gltf_env_skies:
 		var pan_equirect: Texture2D = gltf_env_sky.panorama_equirectangular_texture
 		if pan_equirect != null:
-			var gltf_images: Array[Texture2D] = gltf_state.get_images()
-			var image_index: int = gltf_images.size()
-			gltf_images.append(pan_equirect)
-			gltf_state.set_images(gltf_images)
-			var pan_equirect_texture := GLTFTexture.new()
-			pan_equirect_texture.src_image = image_index
-			var gltf_textures: Array[GLTFTexture] = gltf_state.get_textures()
-			var texture_index: int = gltf_textures.size()
-			gltf_textures.append(pan_equirect_texture)
-			gltf_state.set_textures(gltf_textures)
-			gltf_env_sky.panorama_equirectangular_index = texture_index
+			gltf_env_sky.panorama_equirectangular_index = _add_texture(gltf_state, pan_equirect)
+		if gltf_env_sky.panorama_cubemap_textures.size() == 6:
+			gltf_env_sky.panorama_cubemap_indices.clear()
+			for i in range(6):
+				var face: Texture2D = gltf_env_sky.panorama_cubemap_textures[i]
+				if face.resource_name.is_empty():
+					face.resource_name = "sky_cubemap_" + CUBEMAP_FACE_NAMES[i]
+				gltf_env_sky.panorama_cubemap_indices.append(_add_texture(gltf_state, face))
 	return OK
+
+
+func _add_texture(gltf_state: GLTFState, texture: Texture2D) -> int:
+	var gltf_images: Array[Texture2D] = gltf_state.get_images()
+	var image_index: int = gltf_images.size()
+	gltf_images.append(texture)
+	gltf_state.set_images(gltf_images)
+	var gltf_texture := GLTFTexture.new()
+	gltf_texture.src_image = image_index
+	var gltf_textures: Array[GLTFTexture] = gltf_state.get_textures()
+	var texture_index: int = gltf_textures.size()
+	gltf_textures.append(gltf_texture)
+	gltf_state.set_textures(gltf_textures)
+	return texture_index
 
 
 func _export_preserialize(gltf_state: GLTFState) -> Error:

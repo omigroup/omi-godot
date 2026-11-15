@@ -3,6 +3,9 @@ class_name GLTFEnvironmentSky
 extends Resource
 
 
+const CUBEMAP_SKY_SHADER: Shader = preload("res://addons/omi_extensions/environment/cubemap_sky.gdshader")
+const CUBEMAP_FACE_PARAMETERS: Array[StringName] = [&"face_pos_x", &"face_neg_x", &"face_pos_y", &"face_neg_y", &"face_pos_z", &"face_neg_z"]
+
 var ambient_light_color := Color.BLACK
 var ambient_sky_contribution: float = 1.0
 var rotation := Quaternion.IDENTITY
@@ -193,6 +196,14 @@ static func from_environment(env: Environment) -> GLTFEnvironmentSky:
 		if panorama_sky.panorama != null and panorama_sky.panorama.resource_name.is_empty():
 			panorama_sky.panorama.resource_name = panorama_sky.panorama.resource_path.get_file().get_basename()
 		ret.panorama_equirectangular_texture = panorama_sky.panorama
+	elif sky_material is ShaderMaterial and sky_material.shader == CUBEMAP_SKY_SHADER:
+		ret.type = "panorama"
+		for param in CUBEMAP_FACE_PARAMETERS:
+			var face = sky_material.get_shader_parameter(param)
+			if not face is Texture2D:
+				ret.panorama_cubemap_textures.clear()
+				break
+			ret.panorama_cubemap_textures.append(face)
 	elif sky_material is PhysicalSkyMaterial:
 		ret.type = "physical"
 		var physical_sky: PhysicalSkyMaterial = sky_material
@@ -232,9 +243,17 @@ func to_environment() -> Environment:
 			procedural_sky.sun_curve = gradient_sun_curve
 			sky.sky_material = procedural_sky
 		"panorama":
-			var panorama_sky := PanoramaSkyMaterial.new()
-			panorama_sky.panorama = panorama_equirectangular_texture
-			sky.sky_material = panorama_sky
+			# Prefer the cubemap if present. The equirectangular texture is a fallback.
+			if _has_cubemap_textures():
+				var shader_sky := ShaderMaterial.new()
+				shader_sky.shader = CUBEMAP_SKY_SHADER
+				for i in range(6):
+					shader_sky.set_shader_parameter(CUBEMAP_FACE_PARAMETERS[i], panorama_cubemap_textures[i])
+				sky.sky_material = shader_sky
+			else:
+				var panorama_sky := PanoramaSkyMaterial.new()
+				panorama_sky.panorama = panorama_equirectangular_texture
+				sky.sky_material = panorama_sky
 		"physical":
 			var physical_sky := PhysicalSkyMaterial.new()
 			physical_sky.ground_color = physical_ground_color
@@ -266,16 +285,13 @@ func to_node() -> Node:
 	var world_env := WorldEnvironment.new()
 	world_env.name = &"WorldEnvironment"
 	world_env.environment = to_environment()
-	if panorama_cubemap_textures.size() >= 6:
-		var cubemap_mi: CubemapSky3D = _make_cubemap_mesh()
-		cubemap_mi.set_skybox_textures(panorama_cubemap_textures)
-		cubemap_mi.quaternion = rotation
-		cubemap_mi.add_child(world_env)
-		return cubemap_mi
 	return world_env
 
 
-func _make_cubemap_mesh() -> CubemapSky3D:
-	var mesh_instance := CubemapSky3D.new()
-	mesh_instance.name = &"CubemapSky3D"
-	return mesh_instance
+func _has_cubemap_textures() -> bool:
+	if panorama_cubemap_textures.size() != 6:
+		return false
+	for tex in panorama_cubemap_textures:
+		if tex == null:
+			return false
+	return true
