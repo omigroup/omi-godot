@@ -3,8 +3,9 @@ class_name GLTFEnvironmentSky
 extends Resource
 
 
-var ambient_color := Color.BLACK
+var ambient_light_color := Color.BLACK
 var ambient_sky_contribution: float = 1.0
+var rotation := Quaternion.IDENTITY
 var type: String
 
 var gradient_bottom_color := Color(0.2, 0.169, 0.133)
@@ -20,12 +21,12 @@ var panorama_cubemap_textures: Array[Texture2D] = []
 var panorama_equirectangular_index: int = -1
 var panorama_equirectangular_texture: Texture2D = null
 
-var physical_ground_color := Color(0.3, 0.2, 0.1)
+var physical_ground_color := Color(0.16, 0.1, 0.05)
 var physical_mie_color := Color.WHITE
-var physical_mie_scale: float = 0.000005
+var physical_mie_coefficient: float = 0.000005
 var physical_mie_anisotropy: float = 0.8
 var physical_rayleigh_color := Color(0.3, 0.5, 1.0)
-var physical_rayleigh_scale: float = 0.00003
+var physical_rayleigh_coefficient: float = 0.00003
 
 var plain_color := Color.BLACK
 
@@ -36,11 +37,14 @@ static func from_dictionary(dict: Dictionary) -> GLTFEnvironmentSky:
 		ret.type = dict["type"]
 	else:
 		printerr("GLTFEnvironmentSky: Missing required field 'type'. An empty environment sky will be created.")
-	if dict.has("ambientColor"):
-		var ambient_color: Array = dict["ambientColor"]
-		ret.ambient_color = Color(ambient_color[0], ambient_color[1], ambient_color[2])
+	if dict.has("ambientLightColor"):
+		var ambient_light_color: Array = dict["ambientLightColor"]
+		ret.ambient_light_color = Color(ambient_light_color[0], ambient_light_color[1], ambient_light_color[2])
 	if dict.has("ambientSkyContribution"):
 		ret.ambient_sky_contribution = dict["ambientSkyContribution"]
+	if dict.has("rotation"):
+		var rot: Array = dict["rotation"]
+		ret.rotation = Quaternion(rot[0], rot[1], rot[2], rot[3]).normalized()
 	if dict.has("gradient"):
 		var gradient: Dictionary = dict["gradient"]
 		if gradient.has("bottomColor"):
@@ -80,13 +84,13 @@ static func from_dictionary(dict: Dictionary) -> GLTFEnvironmentSky:
 		if physical.has("mieColor"):
 			var mie_color: Array = physical["mieColor"]
 			ret.physical_mie_color = Color(mie_color[0], mie_color[1], mie_color[2])
-		if physical.has("mieScale"):
-			ret.physical_mie_scale = physical["mieScale"]
+		if physical.has("mieCoefficient"):
+			ret.physical_mie_coefficient = physical["mieCoefficient"]
 		if physical.has("rayleighColor"):
 			var rayleigh_color: Array = physical["rayleighColor"]
 			ret.physical_rayleigh_color = Color(rayleigh_color[0], rayleigh_color[1], rayleigh_color[2])
-		if physical.has("rayleighScale"):
-			ret.physical_rayleigh_scale = physical["rayleighScale"]
+		if physical.has("rayleighCoefficient"):
+			ret.physical_rayleigh_coefficient = physical["rayleighCoefficient"]
 	if dict.has("plain"):
 		var plain: Dictionary = dict["plain"]
 		if plain.has("color"):
@@ -99,10 +103,12 @@ func to_dictionary() -> Dictionary:
 	var ret: Dictionary = {
 		"type": type,
 	}
-	if ambient_color != Color.BLACK:
-		ret["ambientColor"] = [ambient_color.r, ambient_color.g, ambient_color.b]
+	if ambient_light_color != Color.BLACK:
+		ret["ambientLightColor"] = [ambient_light_color.r, ambient_light_color.g, ambient_light_color.b]
 	if ambient_sky_contribution != 1.0:
 		ret["ambientSkyContribution"] = ambient_sky_contribution
+	if not rotation.is_equal_approx(Quaternion.IDENTITY):
+		ret["rotation"] = [rotation.x, rotation.y, rotation.z, rotation.w]
 	match type:
 		"gradient":
 			var gradient = {
@@ -131,19 +137,20 @@ func to_dictionary() -> Dictionary:
 				panorama["equirectangular"] = panorama_equirectangular_index
 			ret["panorama"] = panorama
 		"physical":
+			var always_write_physical_colors: bool = true
 			var physical: Dictionary = {}
-			if physical_ground_color != Color(0.3, 0.2, 0.1):
+			if physical_ground_color != Color(0.16, 0.1, 0.05) or always_write_physical_colors:
 				physical["groundColor"] = [physical_ground_color.r, physical_ground_color.g, physical_ground_color.b]
 			if physical_mie_anisotropy != 0.8:
 				physical["mieAnisotropy"] = physical_mie_anisotropy
-			if physical_mie_color != Color.WHITE:
+			if physical_mie_color != Color.WHITE or always_write_physical_colors:
 				physical["mieColor"] = [physical_mie_color.r, physical_mie_color.g, physical_mie_color.b]
-			if physical_mie_scale != 0.000005:
-				physical["mieScale"] = physical_mie_scale
-			if physical_rayleigh_color != Color(0.3, 0.5, 1.0):
+			if physical_mie_coefficient != 0.000005:
+				physical["mieCoefficient"] = physical_mie_coefficient
+			if physical_rayleigh_color != Color(0.3, 0.5, 1.0) or always_write_physical_colors:
 				physical["rayleighColor"] = [physical_rayleigh_color.r, physical_rayleigh_color.g, physical_rayleigh_color.b]
-			if physical_rayleigh_scale != 0.00003:
-				physical["rayleighScale"] = physical_rayleigh_scale
+			if physical_rayleigh_coefficient != 0.00003:
+				physical["rayleighCoefficient"] = physical_rayleigh_coefficient
 			ret["physical"] = physical
 		"plain":
 			if plain_color != Color.BLACK:
@@ -153,8 +160,9 @@ func to_dictionary() -> Dictionary:
 
 static func from_environment(env: Environment) -> GLTFEnvironmentSky:
 	var ret := GLTFEnvironmentSky.new()
-	ret.ambient_color = env.ambient_light_color
+	ret.ambient_light_color = env.ambient_light_color
 	ret.ambient_sky_contribution = env.ambient_light_sky_contribution
+	ret.rotation = Basis.from_euler(env.sky_rotation).get_rotation_quaternion()
 	var bg_mode: Environment.BGMode = env.background_mode
 	match bg_mode:
 		Environment.BG_CLEAR_COLOR:
@@ -191,9 +199,13 @@ static func from_environment(env: Environment) -> GLTFEnvironmentSky:
 		ret.physical_ground_color = physical_sky.ground_color
 		ret.physical_mie_anisotropy = physical_sky.mie_eccentricity
 		ret.physical_mie_color = physical_sky.mie_color
-		ret.physical_mie_scale = physical_sky.mie_coefficient / 1000
+		# Turbidity is a physically-nonsense multiplier Godot applies on top of Mie scattering.
+		var turbidity: float = physical_sky.turbidity
+		if not is_equal_approx(turbidity, 1.0):
+			push_warning("GLTF: Turbidity is not 1.0, consider adjusting your Godot sky.")
+		ret.physical_mie_coefficient = physical_sky.mie_coefficient * physical_sky.turbidity / 2000
 		ret.physical_rayleigh_color = physical_sky.rayleigh_color
-		ret.physical_rayleigh_scale = physical_sky.rayleigh_coefficient / 100000
+		ret.physical_rayleigh_coefficient = physical_sky.rayleigh_coefficient / 100000
 	return ret
 
 
@@ -203,8 +215,9 @@ func to_environment() -> Environment:
 	ret.tonemap_mode = Environment.TONE_MAPPER_FILMIC
 	ret.glow_enabled = true
 	# Set up the environment with the sky settings from this environment.
-	ret.ambient_light_color = ambient_color
+	ret.ambient_light_color = ambient_light_color
 	ret.ambient_light_sky_contribution = ambient_sky_contribution
+	ret.sky_rotation = rotation.get_euler()
 	var sky := Sky.new()
 	match type:
 		"gradient":
@@ -227,9 +240,12 @@ func to_environment() -> Environment:
 			physical_sky.ground_color = physical_ground_color
 			physical_sky.mie_eccentricity = physical_mie_anisotropy
 			physical_sky.mie_color = physical_mie_color
-			physical_sky.mie_coefficient = physical_mie_scale * 1000
+			physical_sky.mie_coefficient = physical_mie_coefficient * 1000
 			physical_sky.rayleigh_color = physical_rayleigh_color
-			physical_sky.rayleigh_coefficient = physical_rayleigh_scale * 100000
+			physical_sky.rayleigh_coefficient = physical_rayleigh_coefficient * 100000
+			# Turbidity is a physically-nonsense multiplier Godot applies on top of Mie scattering.
+			# Set it to 1.0 to effectively disable it and use the real Mie scattering.
+			physical_sky.turbidity = 1.0
 			sky.sky_material = physical_sky
 		"plain":
 			ret.background_mode = Environment.BG_COLOR
@@ -253,6 +269,7 @@ func to_node() -> Node:
 	if panorama_cubemap_textures.size() >= 6:
 		var cubemap_mi: CubemapSky3D = _make_cubemap_mesh()
 		cubemap_mi.set_skybox_textures(panorama_cubemap_textures)
+		cubemap_mi.quaternion = rotation
 		cubemap_mi.add_child(world_env)
 		return cubemap_mi
 	return world_env

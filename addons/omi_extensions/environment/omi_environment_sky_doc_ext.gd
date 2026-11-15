@@ -6,16 +6,26 @@ extends GLTFDocumentExtension
 @export var export_environment: bool = false
 
 
+const KHR_EXTENSION_NAME: String = "KHR_environment_sky"
+const OMI_EXTENSION_NAME: String = "OMI_environment_sky"
+
+
 # Import process.
 func _import_preflight(state: GLTFState, extensions: PackedStringArray) -> Error:
-	if not extensions.has("OMI_environment_sky"):
+	# Prefer KHR_environment_sky, but also read OMI_environment_sky.
+	var ext_name: String
+	if extensions.has(KHR_EXTENSION_NAME):
+		ext_name = KHR_EXTENSION_NAME
+	elif extensions.has(OMI_EXTENSION_NAME):
+		ext_name = OMI_EXTENSION_NAME
+	else:
 		return ERR_SKIP
 	if not state.json.has("extensions"):
 		return ERR_FILE_UNRECOGNIZED
 	var doc_extensions: Dictionary = state.json["extensions"]
-	if not doc_extensions.has("OMI_environment_sky"):
+	if not doc_extensions.has(ext_name):
 		return ERR_FILE_UNRECOGNIZED
-	var env_sky_ext: Dictionary = doc_extensions["OMI_environment_sky"]
+	var env_sky_ext: Dictionary = doc_extensions[ext_name]
 	var gltf_env_skies: Array[GLTFEnvironmentSky] = []
 	if env_sky_ext.has("skies"):
 		var sky_dicts: Array = env_sky_ext["skies"]
@@ -23,25 +33,14 @@ func _import_preflight(state: GLTFState, extensions: PackedStringArray) -> Error
 			var sky_dict: Dictionary = sky_dicts[i]
 			gltf_env_skies.append(GLTFEnvironmentSky.from_dictionary(sky_dict))
 		state.set_additional_data(&"GLTFEnvironmentSkies", gltf_env_skies)
-	# Get the sky index. Default to 0 but this may be overwritten by the scene.
-	state.set_additional_data(&"GLTFEnvironmentSkyIndex", 0)
-	if state.json.has("scene") and state.json.has("scenes"):
-		var scene_index: int = state.json["scene"]
-		var scenes: Array = state.json["scenes"]
-		if scene_index < scenes.size():
-			var scene: Dictionary = scenes[scene_index]
-			if scene.has("extensions"):
-				var scene_ext: Dictionary = scene["extensions"]
-				if scene_ext.has("OMI_environment_sky"):
-					var scene_sky_ext: Dictionary = scene_ext["OMI_environment_sky"]
-					if scene_sky_ext.has("sky"):
-						var sky_index: int = scene_sky_ext["sky"]
-						state.set_additional_data(&"GLTFEnvironmentSkyIndex", sky_index)
+	# Get the sky index, which defaults to 0.
+	var sky_index: int = env_sky_ext.get("sky", 0)
+	state.set_additional_data(&"GLTFEnvironmentSkyIndex", sky_index)
 	return OK
 
 
 func _get_supported_extensions() -> PackedStringArray:
-	return PackedStringArray(["OMI_environment_sky"])
+	return PackedStringArray([KHR_EXTENSION_NAME, OMI_EXTENSION_NAME])
 
 
 func _import_post_parse(gltf_state: GLTFState) -> Error:
@@ -139,18 +138,10 @@ func _export_preserialize(gltf_state: GLTFState) -> Error:
 		for gltf_env_sky in gltf_env_skies:
 			sky_dicts.append(gltf_env_sky.to_dictionary())
 		var env_sky_ext: Dictionary = { "skies": sky_dicts }
+		var sky_index = gltf_state.get_additional_data(&"GLTFEnvironmentSkyIndex")
+		if sky_index is int and sky_index != 0:
+			env_sky_ext["sky"] = sky_index
 		var doc_extensions: Dictionary = gltf_state.json.get_or_add("extensions", {})
-		doc_extensions["OMI_environment_sky"] = env_sky_ext
-		gltf_state.add_used_extension("OMI_environment_sky", false)
-	return OK
-
-
-func _export_post(gltf_state: GLTFState) -> Error:
-	var sky_index = gltf_state.get_additional_data(&"GLTFEnvironmentSkyIndex")
-	if sky_index is int and sky_index != 0:
-		var scenes: Array = gltf_state.json["scenes"]
-		var scene_0: Dictionary = scenes[0]
-		var scene_ext: Dictionary = scene_0.get_or_add("extensions", {})
-		var scene_sky_ext: Dictionary = scene_ext.get_or_add("OMI_environment_sky", {})
-		scene_sky_ext["sky"] = sky_index
+		doc_extensions[OMI_EXTENSION_NAME] = env_sky_ext
+		gltf_state.add_used_extension(OMI_EXTENSION_NAME, false)
 	return OK

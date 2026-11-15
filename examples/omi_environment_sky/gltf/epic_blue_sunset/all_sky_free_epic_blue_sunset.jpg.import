@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7rpo3b235e12"
-path.s3tc="res://.godot/imported/posy.png-96fd43c55b65a010125556520beab4bf.s3tc.ctex"
+uid="uid://c7dfhjvmq33mq"
+path.s3tc="res://.godot/imported/all_sky_free_epic_blue_sunset.jpg-08577d6d0b5acb3014a10aa050361001.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://examples/omi_environment_sky/gltf/nebula_cubemap/posy.png"
-dest_files=["res://.godot/imported/posy.png-96fd43c55b65a010125556520beab4bf.s3tc.ctex"]
+source_file="res://examples/omi_environment_sky/gltf/epic_blue_sunset/all_sky_free_epic_blue_sunset.jpg"
+dest_files=["res://.godot/imported/all_sky_free_epic_blue_sunset.jpg-08577d6d0b5acb3014a10aa050361001.s3tc.ctex"]
 
 [params]
 

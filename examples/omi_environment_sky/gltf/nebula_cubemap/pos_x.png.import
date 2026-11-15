@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0mrj7k188ran"
-path.s3tc="res://.godot/imported/allskyfree_epic_blue_sunset.jpg-18cc8d28f5fe685b1a5ce38d4c45b240.s3tc.ctex"
+uid="uid://co11q3mt1gyw2"
+path.s3tc="res://.godot/imported/pos_x.png-00af6425e53e9f72fef880481f98beb3.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://examples/omi_environment_sky/gltf/epic_blue_sunset/allskyfree_epic_blue_sunset.jpg"
-dest_files=["res://.godot/imported/allskyfree_epic_blue_sunset.jpg-18cc8d28f5fe685b1a5ce38d4c45b240.s3tc.ctex"]
+source_file="res://examples/omi_environment_sky/gltf/nebula_cubemap/pos_x.png"
+dest_files=["res://.godot/imported/pos_x.png-00af6425e53e9f72fef880481f98beb3.s3tc.ctex"]
 
 [params]
 

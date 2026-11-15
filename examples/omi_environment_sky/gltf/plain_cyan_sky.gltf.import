@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://25714ws44vks"
+uid="uid://b5cox6faqdlo"
 path="res://.godot/imported/plain_cyan_sky.gltf-0dc686e543400c976fc41ae6729f56b5.scn"
 
 [deps]
@@ -21,8 +21,8 @@ array_mesh/deduplicate_surfaces=true
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
-nodes/use_name_suffixes=false
-nodes/use_node_type_suffixes=false
+nodes/use_name_suffixes=true
+nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true

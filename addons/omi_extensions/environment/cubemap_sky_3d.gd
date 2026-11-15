@@ -9,6 +9,10 @@ static var quad_uv := PackedVector2Array([Vector2(0, 0), Vector2(1, 0), Vector2(
 
 
 func _init() -> void:
+	# When loading a saved scene, the mesh is set before the script, so
+	# don't overwrite the saved mesh (and its textures) with a new one.
+	if mesh != null:
+		return
 	var array_mesh := ArrayMesh.new()
 	var surface_array: Array = [
 		PackedVector3Array([Vector3(S, S, -S), Vector3(S, S, S), Vector3(S, -S, -S), Vector3(S, -S, -S), Vector3(S, S, S), Vector3(S, -S, S)]),
@@ -67,5 +71,5 @@ func set_skybox_textures(textures: Array[Texture2D]) -> void:
 	for i in range(textures.size()):
 		var mat: StandardMaterial3D = mesh.surface_get_material(i)
 		if mat:
-			mat.albedo_texture = textures[i].duplicate(true)
+			mat.albedo_texture = textures[i]
 			mesh.surface_set_material(i, mat)

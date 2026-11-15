@@ -8,6 +8,7 @@ Extensions implemented in this repository:
 
 | Extension name                 | Import | Export | Godot version | Link                                                                                                                                         |
 | ------------------------------ | ------ | ------ | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| **KHR_environment_sky**        | Yes    | No     | 4.4+          | [KHR_environment_sky extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/KHR_environment_sky)               |
 | **OMI_environment_sky**        | Yes    | Yes    | 4.4+          | [OMI_environment_sky extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_environment_sky)               |
 | **OMI_physics_joint**          | Yes    | Yes    | 4.4+          | [OMI_physics_joint extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_physics_joint)                   |
 | **OMI_seat**                   | Yes    | Yes    | 4.0+          | [OMI_seat extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_seat)                                     |

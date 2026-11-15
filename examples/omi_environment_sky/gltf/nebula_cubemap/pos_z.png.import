@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ciqyt53y860bc"
-path.s3tc="res://.godot/imported/negy.png-97df337ce72446e35f040f6305424e3f.s3tc.ctex"
+uid="uid://drkcweq8rtasv"
+path.s3tc="res://.godot/imported/pos_z.png-bacca50c09e12890e07368cfea6f8617.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://examples/omi_environment_sky/gltf/nebula_cubemap/negy.png"
-dest_files=["res://.godot/imported/negy.png-97df337ce72446e35f040f6305424e3f.s3tc.ctex"]
+source_file="res://examples/omi_environment_sky/gltf/nebula_cubemap/pos_z.png"
+dest_files=["res://.godot/imported/pos_z.png-bacca50c09e12890e07368cfea6f8617.s3tc.ctex"]
 
 [params]
 
