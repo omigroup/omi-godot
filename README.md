@@ -10,6 +10,7 @@ Extensions implemented in this repository:
 | ------------------------------ | ------ | ------ | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | **KHR_environment_sky**        | Yes    | No     | 4.4+          | [KHR_environment_sky extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/KHR_environment_sky)               |
 | **OMI_environment_sky**        | Yes    | Yes    | 4.4+          | [OMI_environment_sky extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_environment_sky)               |
+| **OMI_materials_blend**        | Yes    | Yes    | 4.4+          | [OMI_materials_blend extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_materials_blend)               |
 | **OMI_physics_joint**          | Yes    | Yes    | 4.4+          | [OMI_physics_joint extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_physics_joint)                   |
 | **OMI_seat**                   | Yes    | Yes    | 4.0+          | [OMI_seat extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_seat)                                     |
 | **OMI_spawn_point**            | Yes    | No     | 4.0+          | [OMI_spawn_point extension spec](https://github.com/omigroup/gltf-extensions/tree/main/extensions/2.0/OMI_spawn_point)                       |

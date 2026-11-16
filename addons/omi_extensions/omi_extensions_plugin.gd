@@ -11,6 +11,8 @@ func _enter_tree() -> void:
 	var ext: GLTFDocumentExtension
 	ext = GLTFDocumentExtensionOMIEnvironmentSky.new()
 	GLTFDocument.register_gltf_document_extension(ext, true)
+	ext = GLTFDocumentExtensionOMIMaterialsBlend.new()
+	GLTFDocument.register_gltf_document_extension(ext)
 	ext = GLTFDocumentExtensionOMISeat.new()
 	GLTFDocument.register_gltf_document_extension(ext, true)
 	ext = GLTFDocumentExtensionOMISpawnPoint.new()
