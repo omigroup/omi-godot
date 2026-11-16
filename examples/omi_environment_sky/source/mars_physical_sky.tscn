@@ -23,5 +23,9 @@ glow_enabled = true
 [node name="Box" type="MeshInstance3D" parent="." unique_id=220194212]
 mesh = SubResource("BoxMesh_gpb6a")
 
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=116992982]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=108152336]
 environment = SubResource("Environment_aewbv")
